@@ -67,7 +67,7 @@ hello world
 $ nc 127.0.0.1 80
 hello world
 ```
-### Sending HTTP request messages using netcat.
+### Sending HTTP request messages using netcat
 Using netcat, you can actually send HTTP messages in pure text.
 No browser, no library, no programming.
 Let's send the same HTTP request in [the example above](#requests).
@@ -102,7 +102,7 @@ $ printf 'GET / HTTP/1.1\r\nHost: google.com\r\n\r\n' | nc google.com 80
 Note that there is a blank line(`\r\n`) at the end of the message.
 It indicates all information for the request has been sent.
 
-## Buliding a web server using netcat.
+## Buliding a web server using netcat
 Let's run a simple web server using netcat and connect to it with a web browser.
 The web server in this example will redirect any incomming request to `https://google.com`.
 ```sh

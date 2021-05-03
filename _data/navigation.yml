@@ -10,3 +10,5 @@ categories:
     children:
       - title: "Networking"
         url: /networking/
+      - title: "Python"
+        url: /python/
