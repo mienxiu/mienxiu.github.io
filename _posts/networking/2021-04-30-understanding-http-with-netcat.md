@@ -3,6 +3,7 @@ title: Understanding HTTP with netcat
 category: networking
 toc: true
 toc_sticky: true
+post_no: 1
 ---
 Any web developer would know about HTTP buy may not be familiar with the exact syntax of it.
 HTTP is just a **protocol** which a client and a server use for data communication.
