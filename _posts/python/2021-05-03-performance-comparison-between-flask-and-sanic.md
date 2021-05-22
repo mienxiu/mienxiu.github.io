@@ -6,13 +6,12 @@ toc_sticky: true
 post_no: 2
 ---
 ## Flask and Sanic
-**[Flask](https://github.com/pallets/flask)** is one of the most popular micro web frameworks written in Python and I love using it for developing a wide range of web services because of its simplicity and flexibility.
-And it's also amazingly extensible thanks to the various plugins.
+**[Flask](https://github.com/pallets/flask)** is one of the most popular micro web frameworks written in Python and I love using it for developing a wide range of web services because of its simplicity and flexibility. Flask is a WSGI application which is inherently synchronous.
 
-**[Sanic](https://github.com/sanic-org/sanic)**, meanwhile, is relatively a new framework that allows Python's `async/await` syntax added in Python 3.5.
-It's an asynchronous web framwork whereas Flask is synchronous.
+**[Sanic](https://github.com/sanic-org/sanic)** is a [ASGI](https://asgi.readthedocs.io/en/latest/) compliant framework that allows Python's `async/await` syntax added in Python 3.5.
+In other words, it's an asynchronous web framwork.
 
-I did some simple benchmarking of two frameworks to demonstrate how much asynchronous servers outperform synchronous servers in dealing with I/O-bound workloads.
+I did some simple benchmarking of two frameworks to demonstrate how much asynchronous servers outperform synchronous servers in dealing with concurrent I/O-bound tasks.
 But first,
 
 ## What is Asynchronous Programming?
@@ -39,11 +38,11 @@ For a test machine:
 * OS: Ubuntu 20.04 LTS
 * Python: 3.9.4
 
-For I/O-bound workloads, the server will simulate the image upload task with the following conditions:
+For I/O-bound tasks, the server will simulate the image upload task with the following conditions:
 * An upload takes from 100 to 200 milliseconds.
 * The maximum number of connections is 5.
 
-For CPU-bound workloads, the server will just do some heavy math calculation - hammering the CPU, so to speak.
+For CPU-bound tasks, the server will just do some heavy math calculation - hammering the CPU, so to speak.
 
 For a client, I'm going to use `ab`, a single-threaded Apache HTTP server benchmarking tool.
 
@@ -234,3 +233,6 @@ It also gracefully closes the database after the server stops by calling `close_
 
 ## Conclusion
 With asynchronous web servers, you can achieve a better throughput in handling multiple I/O requests more efficiently by not having to wait the I/O task before handling the next request.
+
+## Recommended Reading
+* [Using Asyncio in Python](https://www.oreilly.com/library/view/using-asyncio-in/9781492075325/)
