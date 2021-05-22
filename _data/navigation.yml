@@ -8,6 +8,8 @@ main:
 categories:
   - title: Categories
     children:
+      - title: "Kubernetes"
+        url: /kubernetes/
       - title: "Networking"
         url: /networking/
       - title: "Python"
