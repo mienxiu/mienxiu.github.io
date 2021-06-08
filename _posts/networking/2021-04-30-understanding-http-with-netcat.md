@@ -5,7 +5,8 @@ toc: true
 toc_sticky: true
 post_no: 1
 ---
-Any web developer would know about HTTP buy may not be familiar with the exact syntax of it.
+Any web developer would know about HTTP buy may not be familiar with the exact syntax of it because it's abstracted by the network libraries.
+
 HTTP is just a **protocol** which a client and a server use for data communication.
 In order to comply with this protocol, every HTTP message should be formed in accordance with [a certain standard](https://tools.ietf.org/html/rfc7230).
 
