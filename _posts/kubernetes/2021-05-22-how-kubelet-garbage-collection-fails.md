@@ -1,7 +1,8 @@
 ---
 title: How Kubelet Garbage Collection Fails
 category: kubernetes
-classes: wide
+toc: true
+toc_sticky: true
 post_no: 3
 ---
 Since I've bootstrapped a K8s cluster and been administrating all by myself, I've encountered many problems and I have had to solve them on my own.
