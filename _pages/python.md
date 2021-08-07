@@ -1,5 +1,6 @@
 ---
-layout: category
-permalink: /python/
+title: Python
+layout: tag
+permalink: /tags/python/
 taxonomy: python
 ---

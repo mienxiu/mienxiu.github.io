@@ -1,6 +1,6 @@
 ---
 title: Peformance Comparison between Flask and Sanic
-category: python
+tags: [python]
 toc: true
 toc_sticky: true
 post_no: 2

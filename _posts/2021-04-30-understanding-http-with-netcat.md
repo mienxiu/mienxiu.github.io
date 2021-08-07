@@ -1,6 +1,6 @@
 ---
 title: Understanding HTTP with netcat
-category: networking
+tags: [networking]
 toc: true
 toc_sticky: true
 post_no: 1
