@@ -1,5 +1,6 @@
 ---
-layout: category
-permalink: /kubernetes/
+title: Kubernetes
+layout: tag
+permalink: /tags/kubernetes/
 taxonomy: kubernetes
 ---

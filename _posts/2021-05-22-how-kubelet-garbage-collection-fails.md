@@ -1,6 +1,6 @@
 ---
 title: How Kubelet Garbage Collection Fails
-category: kubernetes
+tags: [kubernetes]
 toc: true
 toc_sticky: true
 post_no: 3

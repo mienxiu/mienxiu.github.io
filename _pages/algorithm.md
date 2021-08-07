@@ -1,5 +1,6 @@
 ---
-layout: category
-permalink: /algorithm/
+title: Algorithm
+layout: tag
+permalink: /tags/algorithm/
 taxonomy: algorithm
 ---

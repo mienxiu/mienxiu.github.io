@@ -5,14 +5,15 @@ main:
   - title: "Posts"
     url: /posts/
 
-categories:
-  - title: Categories
+tags:
+  - title: Tags
+    url: /tags/
     children:
       - title: "Algorithm"
-        url: /algorithm/
+        url: /tags/algorithm/
       - title: "Kubernetes"
-        url: /kubernetes/
+        url: /tags/kubernetes/
       - title: "Networking"
-        url: /networking/
+        url: /tags/networking/
       - title: "Python"
-        url: /python/
+        url: /tags/python/

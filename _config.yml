@@ -292,7 +292,7 @@ defaults:
       share: true
       related: true
       sidebar:
-        nav: "categories"
+        nav: "tags"
   # _pages
   - scope:
       path: ""
@@ -301,4 +301,4 @@ defaults:
       layout: single
       author_profile: true
       sidebar:
-        nav: "categories"
+        nav: "tags"
