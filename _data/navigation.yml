@@ -15,5 +15,7 @@ tags:
         url: /tags/kubernetes/
       - title: "Networking"
         url: /tags/networking/
+      - title: "OOP"
+        url: /tags/oop/
       - title: "Python"
         url: /tags/python/
