@@ -19,7 +19,7 @@ locale                   : "en-US"
 title                    : "Mienxiu"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Your Name"
+name                     : "Mienxiu"
 description              : "An amazing website."
 url                      : "https://mienxiu.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
