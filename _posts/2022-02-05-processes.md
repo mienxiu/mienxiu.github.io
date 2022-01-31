@@ -7,6 +7,7 @@ post_no: 9
 ---
 ## Definition
 A process is an instance of an executing program.
+It is also referred to as a "task" or "job.
 
 ![process](/assets/images/9-processes0.png)
 
@@ -17,7 +18,7 @@ This static entity becomes a process when it is launched and loaded in memory.
 In terms of "instance", a process represents the execution state of an active program.
 it is not necessarily running when it is waiting for the hardware resource to be allocated, or user input, and so forth.
 
-A process is also referred to as a "task" or "job.
+A process is represented with its *address space* and its execution context in *PCB*.
 
 ## Process Address Space
 The process address space is the set of *virtual addresses* that point to the physical addresses in memory used by the process.
@@ -113,7 +114,7 @@ Context switches are usually expensive for two reasons:
 * direct costs: saving and loading registers and memory maps, updating PCB, etc.
 * indirect cost: replacing CPU cache for the new data (cold cache)
 
-The indirect costs are not directly caused by the context swtich itself but eventually incur thereafter, because the data of `P2` would not be in the cache the next time `P2` is scheduled to execute.
+The indirect costs are not directly caused by the context switch itself but eventually incur thereafter, because the data of `P2` would not be in the cache the next time `P2` is scheduled to execute.
 
 For these reasons, optimizing context switches is one of the most important considerations when designing operating systems.
 

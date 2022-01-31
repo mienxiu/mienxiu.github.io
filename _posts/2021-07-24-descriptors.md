@@ -4,6 +4,7 @@ tags: [python]
 toc: true
 toc_sticky: true
 post_no: 5
+featured: true
 ---
 A **descriptor** is a class attribute which defines any of the special methods:
 * `__get__(self, obj, owner=None) -> value`
