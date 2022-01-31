@@ -4,6 +4,7 @@ tags: [OOP, python]
 toc: true
 toc_sticky: true
 post_no: 6
+featured: true
 ---
 The **circle-ellipse problem**, or square–rectangle problem, illustrates a limitation of OOP (object-oriented programming).
 Specifically, it violates the *Liskov substitution principle* (LSP) of the [SOLID](https://en.wikipedia.org/wiki/SOLID) principles.
