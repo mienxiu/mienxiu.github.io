@@ -21,7 +21,7 @@ For example, it ensures that multiple applications on the same hardware do not a
 An operating system supports some higher-level **abstractions** and **mechanims** to achieve its goal:
 
 |type|abstractions|mechanisms|
-|--|--|--|
+|---|---|---|
 |applications|process, thread|create, schedule|
 |hardware|file, socket, memory page|open, write, allocate|
 
@@ -67,7 +67,7 @@ And they are available via system calls.
 Some system call examples in Unix-like systems are:
 
 |service|system calls|
-|--|--|
+|---|---|
 |process control|`fork`, `wait`, `exit`|
 |file management|`open`, `read`, `write`, `close`|
 |device management|`ioctl`, `read`, `write`|

@@ -2,7 +2,7 @@
 permalink: /about/
 title: About
 ---
-I am a backend developer from Seoul.
+I am a software engineer from Seoul.
 I graduated from Sejong University with degrees in electrical and computer engineering and English language and literature.
 I'm also a DevOps engineer, cloud system administrator, self-directed learner, pragmatist, and empiricist.
 
