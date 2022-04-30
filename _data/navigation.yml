@@ -11,6 +11,10 @@ tags:
     children:
       - title: "Algorithm"
         url: /tags/algorithm/
+      - title: "C"
+        url: /tags/c/
+      - title: "Data Structure"
+        url: /tags/data-structure/
       - title: "Kubernetes"
         url: /tags/kubernetes/
       - title: "Networking"
