@@ -11,6 +11,8 @@ tags:
     children:
       - title: "Algorithm"
         url: /tags/algorithm/
+      - title: "AWS"
+        url: /tags/aws/
       - title: "C"
         url: /tags/c/
       - title: "Data Structure"

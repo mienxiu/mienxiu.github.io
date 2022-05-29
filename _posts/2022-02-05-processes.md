@@ -7,7 +7,7 @@ post_no: 9
 ---
 ## Definition
 A process is an instance of an executing program.
-It is also referred to as a "task" or "job.
+It is also referred to as a "task" or "job".
 
 ![process](/assets/images/9-processes0.png)
 
@@ -64,7 +64,7 @@ For example, a mapping model of the variable `x` in the page table would look so
 This page-table entry is referenced whenever the process tries to access `x`.
 
 Note that there may be portions of the address space that are not actually allocated as the physical memory may not be enough to store all of the states of the processes.
-To solve this physical limitation, some portions may be *swapped* temporarily on disk and are swapped back to memory whenever it's needed.
+To solve this physical limitation, some portions may be *swapped* temporarily on disk and are swapped back to memory whenever they are needed.
 
 A takeaway here is that the OS must maintain the information about the process address space for each process.
 
@@ -164,7 +164,7 @@ A ready-queue points to the first PCB in the list, and each PCB points to the ne
 It is a *CPU scheduler* that determines which process in the ready queue will be dispatched to the CPU, and how long it should run for.
 
 Here's how the OS manages the CPU:
-* preempt: The OS preempts to interrupt the the executing process and save its current context.
+* preempt: The OS preempts to interrupt the executing process and save its current context.
 * schedule: The OS runs the scheduling algorithm to choose which one of the processes in the ready queue should be run next.
 * dispatch: The OS dispatches that process on to the CPU and switches into its context.
 
