@@ -10,7 +10,7 @@ An operating system, or OS, is just a software that abstracts and arbitrates the
 
 ![os-definition](/assets/images/8-os-overview0.png)
 
-In temrs of "abstracts", the OS hides the hardware complexity from the applications.
+In terms of "abstracts", the OS hides the hardware complexity from the applications.
 It means that, for example, the application developers don't have to worry about disk sectors or blocks to write a file to a disk, or composing packets to use network devices to send HTTP responses to clients for a web server application.
 
 In terms of "arbitrates", the OS manages the hardware resources on behalf of the running applications or processes.
@@ -87,6 +87,7 @@ The traditional OS architecture is a monolithic design where all services are bu
     * manageability
     * memory footprint
     * performance
+
 ### Modular OS
 Modular OS has some basic services already built in it and the other services can be added as modules by implementing certain interfaces that the OS specifies.
 
@@ -100,6 +101,7 @@ For example, we can install a random file access file system module for the data
     * maintenance can still be an issue
 
 Modular OS is more common today than the monolithic one.
+
 ### Microkernel
 Microkernel only provides the most basic services and the other ones can be run at user level.
 Because it requires lots of inter-process interactions, the microkernel supports IPC as one of its core abstractions and mechanisms.

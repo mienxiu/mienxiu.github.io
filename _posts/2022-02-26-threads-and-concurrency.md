@@ -327,7 +327,7 @@ Thread management is done the by kernel.
 ![one-to-one model](/assets/images/10-threads9.png)
 
 Pros:
-* provide more concurrency than the many-to-one omdel.
+* provide more concurrency than the many-to-one model.
 * OS knows what user threads need in terms of synchronization, schedudling, blocking.
 
 Cons:
@@ -370,7 +370,7 @@ This model is not used as much as the one-to-one model, because limiting the num
 There are some useful multithreading patterns for structuring multi-threaded applications.
 
 ### Boss-Workers Pattern
-In the boss-workers pattern, a boss thread assigns work to the worker threads, and the workers performs the entire task that's assigned to them.
+In the boss-workers pattern, a boss thread assigns work to the worker threads, and the workers perform the entire task that's assigned to them.
 
 ![boss-workers pattern](/assets/images/10-threads12.png)
 
@@ -391,7 +391,7 @@ Cons:
 * thread pool management
 * locality
 
-Do not that the workers do not necessarily have to do the same subtasks.
+Do note that the workers do not necessarily have to do the same subtasks.
 A group of workers can be specialized for certan tasks to achieve better performance with better locality.
 
 ### Pipeline Pattern
