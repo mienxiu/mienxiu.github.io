@@ -1,6 +1,6 @@
 ---
 title: Circle-ellipse Problem
-tags: [OOP, python]
+tags: [oop, python, software engineering]
 toc: true
 toc_sticky: true
 post_no: 6
@@ -15,8 +15,12 @@ But to better understand why this is a pitfall in object modelling, we first nee
 
 ## Liskov Substitution Principle
 The Liskov Substitution Principle (LSP) was introduced by Barbara Liskov in 1987.
-The formal definition of LSP is '*If S is a subtype of T, then objects of type T may be replaced with objects of type S*'.
-I'd like to provide one more important statement to the definition - '*Each instance of a subclass is automatically an instance of superclass*` (Rumbaugh et al., 1991).
+The formal definition of LSP is:
+>If S is a subtype of T, then objects of type T may be replaced with objects of type S.
+
+I'd like to provide one more important statement to the definition:
+>Each instance of a subclass is automatically an instance of superclass (Rumbaugh et al., 1991).
+
 In other words, any objects should be replaceable with objects of their subtypes without compromising the expected behavior.
 
 Look at the following code that violates the LSP:
