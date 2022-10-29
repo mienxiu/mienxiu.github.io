@@ -8,7 +8,7 @@ post_no: 10
 A traditional process has a single execution context that can only execute at one CPU at a given point of time. If a process can have multiple execution contexts, it can take advantage of multi-core systems.
 
 ## Definition
-A thread is an excution context of a process.
+A thread is an execution context of a process.
 In other words, it is a basic unit of CPU utilization.
 
 A traditional process with a single thread of control is called *single-threaded* process.

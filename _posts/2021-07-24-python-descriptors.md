@@ -1,11 +1,11 @@
 ---
-title: Descriptors
+title: Python Descriptors
 tags: [python]
 toc: true
 toc_sticky: true
 post_no: 5
 ---
-A **descriptor** is a class attribute which defines any of the special methods:
+A **descriptor** in Python is a class attribute which defines any of the special methods:
 * `__get__(self, obj, owner=None) -> value`
 * `__set__(self, obj, value) -> None`
 * `__delete__(self, obj) -> None`

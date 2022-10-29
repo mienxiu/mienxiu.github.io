@@ -53,7 +53,7 @@ Therefore, multiple processes can have the same virtual address space range, and
 This way, the physical memory is completely independent of whatever the data layout of the process, thus allowing us to maintain physical memory management simple.
 In addition to that, a process can be allocated physical memory wherever such memory is available.
 
-The OS creates the mapping between the virtual aaddress and the physical address when requested to allocate some memory to the virtual address space, and stores it in a *page table*.
+The OS creates the mapping between the virtual address and the physical address when requested to allocate some memory to the virtual address space, and stores it in a *page table*.
 
 For example, a mapping model of the variable `x` in the page table would look something like this:
 
@@ -95,7 +95,7 @@ For example, when an interrupt occurs, both the program counter and CPU register
 And when a process is allocated more memory by the OS, the memory limits information is updated.
 
 Meanwhile, the CPU has a dedicated register to track the current program counter for the currently executing process and this register is automatically updated by the CPU on every new instruction.
-This way, the OS only needs to update the program counter in the PCB whenver that process is interrupted.
+This way, the OS only needs to update the program counter in the PCB whenever that process is interrupted.
 
 ## Context Switch
 Context switch is the mechanism to switch the execution from the context of one process to the context of another process.

@@ -1,6 +1,6 @@
 ---
 title: Circle-ellipse Problem
-tags: [oop, python, software engineering]
+tags: [oop, python, refactoring]
 toc: true
 toc_sticky: true
 post_no: 6

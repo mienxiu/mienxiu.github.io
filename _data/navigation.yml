@@ -19,6 +19,8 @@ tags:
         url: /tags/data-structure/
       - title: "Kubernetes"
         url: /tags/kubernetes/
+      - title: "Microservices"
+        url: /tags/microservices/
       - title: "Networking"
         url: /tags/networking/
       - title: "OOP"
@@ -27,5 +29,7 @@ tags:
         url: /tags/os/
       - title: "Python"
         url: /tags/python/
-      - title: "Software Engineering"
-        url: /tags/software-engineering/
+      - title: "Refactoring"
+        url: /tags/refactoring/
+      - title: "Testing"
+        url: /tags/testing/
