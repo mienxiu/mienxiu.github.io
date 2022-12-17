@@ -8,7 +8,7 @@ post_no: 8
 ## Definition
 An operating system, or OS, is just a software that abstracts and arbitrates the underlying hardware components in computer systems.
 
-![os-definition](/assets/images/8-os-overview0.png)
+![os-definition](/assets/images/8/os-overview0.png)
 
 In terms of "abstracts", the OS hides the hardware complexity from the applications.
 It means that, for example, the application developers don't have to worry about disk sectors or blocks to write a file to a disk, or composing packets to use network devices to send HTTP responses to clients for a web server application.
@@ -32,14 +32,14 @@ and some **policies**:
 
 For example, the OS can allow a **process** to access the physical memory by **allocating** a **memory page** in some addressable region of DRAM of some fixed size and **mapping** that page into the address piece of that process. And it **swaps** the page to disk based on **LRU** algorithm when it needs more memory for some other content.
 
-![os-elements](/assets/images/8-os-overview1.png)
+![os-elements](/assets/images/8/os-overview1.png)
 
 ## Protection Boundary
 To protect any application from directly accessing to the hardware resources, most modern hardware platforms support two modes:
 * user mode (unprivileged)
 * kernel mode (privileged)
 
-![system-call](/assets/images/8-os-overview2.png)
+![system-call](/assets/images/8/os-overview2.png)
 
 Because hardware access can be performed only from kernel mode by the OS kernel, attempts to perform privileged operations from applications in user mode will cause a **trap**:
 1. The application causes a trap and is interrupted.

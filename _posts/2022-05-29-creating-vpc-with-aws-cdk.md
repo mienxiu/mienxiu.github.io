@@ -32,7 +32,7 @@ These constructs have names that begin with `Cfn`.
 
 The end result of this tutorial is as follows:
 
-![vpc](/assets/images/12-vpc.png)
+![vpc](/assets/images/12/vpc.png)
 
 - 2 public and 2 private subnets in different AZs for better availability
 - an internet gateway to communicate outside of the VPC
@@ -128,7 +128,7 @@ You are now ready to deploy the AWS resources.
 <!-- As of this writing, the CDK version is 2.24.1 -->
 
 ## 1. VPC & Subnets
-![vpc](/assets/images/12-vpc1.png)
+![vpc](/assets/images/12/vpc1.png)
 
 The CIDR rules are as follows:
 
@@ -522,7 +522,7 @@ aws [--profile string] ec2 describe-vpcs --vpc-ids (vpc-id)
 ```
 
 ## 2. Internet & NAT Gateways
-![vpc](/assets/images/12-vpc2.png)
+![vpc](/assets/images/12/vpc2.png)
 
 The AWS CloudFormation template to create an Internet gateway and two NAT gateways:
 ```yaml
@@ -602,13 +602,13 @@ nat_gateway1 = aws_ec2.CfnNatGateway(
 To update the stack, issue:
 ```
 cdk [--profile string] synth
-cdk [--profile string] deplloy
+cdk [--profile string] deploy
 ```
 
 From now on, I will skip the `synth` and `deploy` steps.
 
 ## 3. NACL & Route Tables
-![vpc](/assets/images/12-vpc3.png)
+![vpc](/assets/images/12/vpc3.png)
 
 The route tables I'm going to create are as follows:
 - PublicRouteTable

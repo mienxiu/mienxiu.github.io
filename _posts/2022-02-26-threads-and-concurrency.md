@@ -16,7 +16,7 @@ And a process with multiple threads of control is called a *multithreaded* proce
 
 The PCB structure of a multithreaded process is different than a single-threaded one.
 
-![multithreaded](/assets/images/10-threads0.png)
+![multithreaded](/assets/images/10/threads0.png)
 
 The multiple threads of a process share the same virtual address space.
 They share all the code, data, and files.
@@ -25,7 +25,7 @@ However, each thread needs to have a different program counter, stack pointer, a
 ## Benefits
 The main benefit of threads are performance.
 
-![parallelization](/assets/images/10-threads1.png)
+![parallelization](/assets/images/10/threads1.png)
 
 ### Parallelization
 For example, on a multicore system, multiple threads belonging to the process can execute the same code in parallel with a different subset of the input for each thread.
@@ -43,7 +43,7 @@ Moreover, interprocess communication is more costly than inter-thread communicat
 
 A multithreaded process can also be useful on a single CPU.
 
-![single-cpu](/assets/images/10-threads2.png)
+![single-cpu](/assets/images/10/threads2.png)
 
 For instance, consider what happens when a thread makes an I/O request.
 The thread has nothing to do but wait until it is responded.
@@ -70,7 +70,7 @@ A thread is created by calling `Fork` with two parameters:
 * `proc`: the procedure to execute
 * `args`: the arguments for the procedure
 
-![thread-creation](/assets/images/10-threads3.png)
+![thread-creation](/assets/images/10/threads3.png)
 
 The `Fork` here is different from the Unix system call `fork` for process creation.
 {: .notice--warning}
@@ -166,7 +166,7 @@ It means that the programmer should consider this retry policy when using mutex.
 ### Producer/Consumer Example
 Suppose a case where multiple producer threads are inserting data to a queue (or buffer) with a maximum size, and a consumer thread is processing and clearing the data out from that queue when the the queue reaches its limit.
 
-![producer-consumer](/assets/images/10-threads4.png)
+![producer-consumer](/assets/images/10/threads4.png)
 
 The risk of race conditions in this example can be eliminated with a proper mutex implementation:
 ```c
@@ -231,7 +231,7 @@ If it is full, it then signals `queue_full`.
 Note that `while` statement is used to ensure that it checks the queue again after waking up from `Wait`.
 Otherwise, it cannot guarantee that the queue is actually full before processing the data if, for example, there are multiple consumer threads.
 
-![if-problem](/assets/images/10-threads5.png)
+![if-problem](/assets/images/10/threads5.png)
 
 As described in the figure above, it is possible that another new consumer thread has acquired the mutex and has processed the queue as it had passed the `if` statement.
 
@@ -242,7 +242,7 @@ We can infer the semantics of `Wait` at this point:
 ### Readers-Writers problem
 The reader-writers problems are examples of where multiple readers and writers are accessing the shared resource at the same time.
 
-![readers-writers-problem](/assets/images/10-threads6.png)
+![readers-writers-problem](/assets/images/10/threads6.png)
 
 One naive approach to this problem would be to protect the resource with a mutex.
 This is too restrictive as only one thread at a time can access the resource although in practice multiple readers can read the resource at the same time.
@@ -298,7 +298,7 @@ Two more things to note:
 ### Deadlock
 A deadlock is a situation in which two or more threads are waiting on each other to release the lock.
 
-![deadlock](/assets/images/10-threads7.png)
+![deadlock](/assets/images/10/threads7.png)
 
 The most common solution is to maintain a lock order.
 For instance, you can force every thread to get the `mutex_for_a` first and then get the `mutext_for_b`.
@@ -311,12 +311,15 @@ Threads can be distinguished into two levels:
 * user thread: a thread running in user mode
 * kernel thread: a thread running in kernel mode
 
-![thread-levels](/assets/images/10-threads8.png)
+![thread-levels](/assets/images/10/threads8.png)
 
-Kernel threads, or kernel level threads, are supported and managed directly by the operating system, thus directly mapped onto the CPU.
+Kernel threads, or kernel-level threads, are supported and managed directly by the operating system, thus directly mapped onto the CPU.
+Most modern operating systems (such as Linux, Mac OS, Windows) provide kernel support for threads.
 
-User threads, or user level threads, are supported above the kernel and managed without kernel support.
-They must be associated with a kernel threads to be executed, so that the OS level scheduler must schedule that kernel thread onto a CPU.
+User threads, or user-level threads, are supported by the user-level library that is linked with the application and managed without kernel support.
+They are visible to the programmer and are unknown to the kernel, but they must be associated with a kernel thread to be executed, so that the OS level scheduler must schedule that kernel thread onto a CPU.
+
+In that respect, the kernel-level threads look like virtual CPUs from the user-level threading library's perspective.
 
 There are three common models for establishing such a relationship.
 
@@ -324,7 +327,7 @@ There are three common models for establishing such a relationship.
 The one-to-one model maps each user thread to a kernel thread.
 Thread management is done the by kernel.
 
-![one-to-one model](/assets/images/10-threads9.png)
+![one-to-one model](/assets/images/10/threads9.png)
 
 Pros:
 * provide more concurrency than the many-to-one model.
@@ -340,7 +343,7 @@ Most operating systems such as Linux and Windows implement this model.
 The many-to-one model maps many user threads to one kernel thread.
 Thread management is done by the user-level thread library.
 
-![many-to-one model](/assets/images/10-threads10.png)
+![many-to-one model](/assets/images/10/threads10.png)
 
 Pros:
 * totally portable
@@ -356,7 +359,7 @@ Very few systems use this model because of its inability to run multiple threads
 The many-to-many model multiplexes many user threads to a smaller or equal number of kernel threads.
 It takes some advantages from both the one-to-one model and the many-to-one model.
 
-![many-to-many model](/assets/images/10-threads11.png)
+![many-to-many model](/assets/images/10/threads11.png)
 
 Pros:
 * can have bound (a certain user thread mapped onto a kernel thread) or unbound threads
@@ -372,7 +375,7 @@ There are some useful multithreading patterns for structuring multi-threaded app
 ### Boss-Workers Pattern
 In the boss-workers pattern, a boss thread assigns work to the worker threads, and the workers perform the entire task that's assigned to them.
 
-![boss-workers pattern](/assets/images/10-threads12.png)
+![boss-workers pattern](/assets/images/10/threads12.png)
 
 The throughput of the system is limited by the boss thread's perforamnce (througput = 1 / boss_time_per_order).
 In other words, the boss must be kept efficient to gain better throughput.
@@ -397,7 +400,7 @@ A group of workers can be specialized for certan tasks to achieve better perform
 ### Pipeline Pattern
 The pipeline pattern divides the overall task into subtasks, and assigns each subtask to a thread.
 
-![pipeline pattern](/assets/images/10-threads13.png)
+![pipeline pattern](/assets/images/10/threads13.png)
 
 The throughput of this model depends on the longest stage in the pipeline.
 In other words, the performance would be best if every stage takes about the same amount of time.

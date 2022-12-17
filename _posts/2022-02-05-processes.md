@@ -9,7 +9,7 @@ post_no: 9
 A process is an instance of an executing program.
 It is also referred to as a "task" or "job".
 
-![process](/assets/images/9-processes0.png)
+![process](/assets/images/9/processes0.png)
 
 In terms of "executing", a process is an active entity.
 An application is a program that's just stored on disk.
@@ -26,7 +26,7 @@ In short, it's a representation of a process in memory.
 
 The layout of a process in memory is represented by the four sections:
 
-![process-layout](/assets/images/9-processes1.png)
+![process-layout](/assets/images/9/processes1.png)
 
 * text: the executable code, often referred to as an executable or binary
 * data: global variables
@@ -44,7 +44,7 @@ And unlike text and data sections whose sizes are fixed, the sizes of the stack 
 
 The virtual (or logical) addresses, that range from `V0` to `Vmax` in the figure above, don't have to correspond to actual addresses in the physical memory.
 
-![address-mapping](/assets/images/9-processes2.png)
+![address-mapping](/assets/images/9/processes2.png)
 
 The figure above describes two main points of virtual addresses:
 * The virtual address of a variable `x` may not be the same with the physical address of that variable in memory.
@@ -72,7 +72,7 @@ A takeaway here is that the OS must maintain the information about the process a
 In most computer systems, the CPU executes multiple processes concurrently.
 It means that the state of a process may change between `running` and `idle` a lot during its execution.
 
-![multiple-processes](/assets/images/9-processes3.png)
+![multiple-processes](/assets/images/9/processes3.png)
 
 For the CPU can resume the process from where it was stopped (interrupted), the OS needs to store the information, such as which instruction the CPU must execute when the process is rescheduled to run.
 Such information is stored in a process control block.
@@ -80,7 +80,7 @@ Such information is stored in a process control block.
 A process control block (PCB) is a data structure to store all the information about a process.
 When a process is created, the OS creates a corresponding PCB and keeps it in an area of memory that is protected from normal process access.
 
-![pcb](/assets/images/9-processes4.png)
+![pcb](/assets/images/9/processes4.png)
 
 Here are some of the data in a PCB:
 * program counter: indicates the address of the next instruction to be executed for the process.
@@ -100,7 +100,7 @@ This way, the OS only needs to update the program counter in the PCB whenever th
 ## Context Switch
 Context switch is the mechanism to switch the execution from the context of one process to the context of another process.
 
-![context_switch](/assets/images/9-processes5.png)
+![context_switch](/assets/images/9/processes5.png)
 
 Look at the figure above for example.
 The OS manages three processes (`P1`, `P2`, `P3`) and their corresponding PCBs (`PCB_P1`, `PCB_P2`, `PCB_P3`) are stored in memory.
@@ -121,7 +121,7 @@ For these reasons, optimizing context switches is one of the most important cons
 ## Process Lifecycle
 A process can be in several states
 
-![process_state](/assets/images/9-processes6.png)
+![process_state](/assets/images/9/processes6.png)
 
 * new: The process is created.
 * ready: The process is waiting to be assigned to a processor.
@@ -138,7 +138,7 @@ Two concepts to understand process creation:
 * A process may create several new processes during its execution.
 The creating process is called a parent process, and the new processes are called the children of that process.
 
-![process_tree](/assets/images/9-processes7.png)
+![process_tree](/assets/images/9/processes7.png)
 
 It means that all child processes are rooted from `init` process.
 In recent distributions of Linux systems, it's `systemd` instead of `init`.
@@ -156,7 +156,7 @@ In most UNIX systems, the `ps` or `top` command displays the current-running pro
 ## Process Scheduling
 When the CPU is executing one process on it, there may be multiple processes waiting in a *ready queue*.
 
-![ready_queue](/assets/images/9-processes8.png)
+![ready_queue](/assets/images/9/processes8.png)
 
 The queue is generally structured as a linked list as shown in the diagram above.
 A ready-queue points to the first PCB in the list, and each PCB points to the next PCB in the ready queue.
@@ -174,7 +174,7 @@ For example, if the scheduling time is longer than the allocated processing time
 ## I/O
 A process can be placed in the ready queue in several ways.
 
-![io](/assets/images/9-processes9.png)
+![io](/assets/images/9/processes9.png)
 
 For example, the process could make an I/O request to access I/O devices such as network cards, disks, peripherals like keyboards.
 It is then placed in an I/O wait queue.
@@ -195,7 +195,7 @@ Inter-process communication (IPC) is a mechanism that allows cooperating process
 
 Two fundamental models of IPC:
 
-![ipc](/assets/images/9-processes10.png)
+![ipc](/assets/images/9/processes10.png)
 
 * message passing: data exchange through a communication channel
 * shared memory: data exchange in a region of memory
