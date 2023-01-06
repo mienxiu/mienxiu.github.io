@@ -42,6 +42,7 @@ You can think of this architecture as a good starting point for most web applica
 
 ## Prerequisites
 * AWS account
+* AWS CLI
 * Node.js 10.13 or later
 * AWS CDK Toolkit (`npm install -g aws-cdk`)
 * Preferred programming language (e.g. TypeScript, Python, C#)

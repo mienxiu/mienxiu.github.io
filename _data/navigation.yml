@@ -31,5 +31,7 @@ tags:
         url: /tags/python/
       - title: "Refactoring"
         url: /tags/refactoring/
+      - title: "Serverless"
+        url: /tags/serverless/
       - title: "Testing"
         url: /tags/testing/
