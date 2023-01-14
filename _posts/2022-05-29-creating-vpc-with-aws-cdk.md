@@ -4,6 +4,7 @@ tags: [aws, python]
 toc: true
 toc_sticky: true
 post_no: 12
+featured: true
 ---
 The **AWS CDK(Cloud Development Kit)** is an open-source framework to provision and manage the cloud resources using familiar programming languages.
 

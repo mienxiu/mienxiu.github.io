@@ -106,7 +106,7 @@ analytics:
 author:
   name             : "Mienxiu"
   avatar           : "https://avatars.githubusercontent.com/u/82512658?v=4"
-  bio              : "Software Engineer."
+  bio              : "Software Engineer"
   location         : "Seoul, South Korea"
   email            :
   links:
@@ -140,7 +140,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+      url: "https://github.com/mienxiu"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
