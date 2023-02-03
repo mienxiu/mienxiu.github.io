@@ -1,6 +1,6 @@
 ---
 title: Building a Serverless Function using Amazon API Gateway and AWS Lambda
-tags: [aws, python, serverless]
+tags: [aws, docker, python, serverless]
 toc: true
 toc_sticky: true
 post_no: 15

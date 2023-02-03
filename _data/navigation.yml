@@ -17,6 +17,8 @@ tags:
         url: /tags/c/
       - title: "Data Structure"
         url: /tags/data-structure/
+      - title: "Docker"
+        url: /tags/docker/
       - title: "Kubernetes"
         url: /tags/kubernetes/
       - title: "Microservices"
@@ -29,6 +31,8 @@ tags:
         url: /tags/os/
       - title: "Python"
         url: /tags/python/
+      - title: "Redis"
+        url: /tags/redis/
       - title: "Refactoring"
         url: /tags/refactoring/
       - title: "Serverless"
