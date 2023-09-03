@@ -159,13 +159,13 @@ Let me elaborate on the process of configuring GitOps.
             uses: mikefarah/yq@master
             with:
               cmd: |
-                yq eval -i '.spec.template.spec.containers[0].image = "${{ needs.build.outputs.image }}"' manifests/my-app/develop/deployment.yaml
+                yq eval -i '.spec.template.spec.containers[0].image = "{% raw %}${{ needs.build.outputs.image }}{% endraw %}"' manifests/my-app/develop/deployment.yaml
           - name: git push
             run: |
               cd manifests
-              git config user.name "${{ github.actor }}"
-              git config user.email "${{ github.actor }}@users.noreply.github.com"
-              git commit -am "Update ${{ github.event.repository.name }}"
+              git config user.name "{% raw %}${{ github.actor }}{% endraw %}"
+              git config user.email "{% raw %}${{ github.actor }}{% endraw %}@users.noreply.github.com"
+              git commit -am "Update {% raw %}${{ github.event.repository.name }}{% endraw %}"
               git push origin main
   ```
   As you see in this example, we use `yq`, a portable CLI YAML processor, to modify manifests from GitHub Actions.
