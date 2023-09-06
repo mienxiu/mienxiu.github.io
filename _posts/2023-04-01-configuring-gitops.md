@@ -144,29 +144,28 @@ Let me elaborate on the process of configuring GitOps.
         needs: test
         name: Build and push image to the container registry
         uses: ./.github/workflows/build.yaml
-      update-manifest:
+      update_manifest:
         needs: build
         name: Update manifest in the config repo
         runs-on: ubuntu-latest
         steps:
-          - name: Authenticate to GitHub
-            ...
-          - name: git clone
-            run: |
-              git clone git@github.com:user/manifests.git
-              cd manifests
+          - name: Checkout manifests repo
+            uses: actions/checkout@v4
+            with:
+              repository: user/manifests
+              ref: main
+              ssh-key: ...
           - name: Update manifest
             uses: mikefarah/yq@master
             with:
               cmd: |
-                yq eval -i '.spec.template.spec.containers[0].image = "{% raw %}${{ needs.build.outputs.image }}{% endraw %}"' manifests/my-app/develop/deployment.yaml
-          - name: git push
+                yq eval -i '.spec.template.spec.containers[0].image = "{% raw %}${{ needs.build.outputs.image }}{% endraw %}"' my-app/develop/deployment.yaml
+          - name: Commit and push
             run: |
-              cd manifests
               git config user.name "{% raw %}${{ github.actor }}{% endraw %}"
               git config user.email "{% raw %}${{ github.actor }}{% endraw %}@users.noreply.github.com"
               git commit -am "Update {% raw %}${{ github.event.repository.name }}{% endraw %}"
-              git push origin main
+              git push
   ```
   As you see in this example, we use `yq`, a portable CLI YAML processor, to modify manifests from GitHub Actions.
   Another option to achieve this is to use `kustomize`, which can also modify manifests by `kustomize edit set image` command.

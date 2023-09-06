@@ -58,7 +58,7 @@ cdk [--profile string] bootstrap aws://ACCOUNT-NUMBER/REGION
 
 You can confirm that a new stack is created by using AWS CLI:
 ```
-aws [--profile string] cloudformation list-stacks --stack-status-filter CREATE_COMPLETE?
+aws [--profile string] cloudformation list-stacks --stack-status-filter CREATE_COMPLETE
 ```
 ```yaml
 {
