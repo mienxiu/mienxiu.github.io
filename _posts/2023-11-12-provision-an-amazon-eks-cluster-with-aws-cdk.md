@@ -1,6 +1,6 @@
 ---
 title: Provision an Amazon EKS cluster with AWS CDK
-tags: [aws, python, testing]
+tags: [aws, kubernetes, python, testing]
 toc: true
 toc_sticky: true
 post_no: 23
@@ -102,7 +102,7 @@ The following tree shows the files and directories created by `cdk init` command
 ```
 
 You can take a moment to examine each file for an overview of their organization.
-Meanwhile, here's a concise explanation of some key files and directories in the structure:
+Here's a concise explanation of some key files and directories in the structure:
 - `app.py` contains the `App` construct which represents an entire CDK app. Normally, this file acts as an entrypoint for `cdk` command.
 - `my_project` directory is where we are going to write our *stacks*.
     - `my_project_stack.py` is an automatically generated file as a stack example.
