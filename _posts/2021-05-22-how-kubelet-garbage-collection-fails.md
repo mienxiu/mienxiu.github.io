@@ -1,5 +1,5 @@
 ---
-title: How Kubelet Garbage Collection Fails
+title: How Kubelet Garbage Collection Fails (The Outbreak of Evicted Pods)
 tags: [kubernetes]
 toc: true
 toc_sticky: true
@@ -239,7 +239,7 @@ Kubelet garbage collection may fail in some particular cases, and here's one exa
 4. The new pods are evicted and the node gets tainted with `NoSchedule`.
 5. The newly pulled image is deleted too to meet the low threshold.
 6. After a while, the taint is deleted.
-7. `kube-controller-manager` reattempts to create a new pod in place of the evicted nodes, **go back to step 2**.
+7. `kube-controller-manager` reattempts to create a new pod in place of the evicted pods, **go back to step 2**.
 
 This eventually falls in **an infinite loop**.
 As a result, you can see a bunch of bewildered pods.
