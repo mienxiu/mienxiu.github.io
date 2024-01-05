@@ -1,6 +1,6 @@
 ---
 title: Consumer-Driven Contract Testing with Pact
-tags: [microservices, python, testing]
+tags: [kafka, microservices, python, testing]
 toc: true
 toc_sticky: true
 post_no: 14

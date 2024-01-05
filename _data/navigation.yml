@@ -21,6 +21,8 @@ tags:
         url: /tags/data-structure/
       - title: "Docker"
         url: /tags/docker/
+      - title: "Kafka"
+        url: /tags/kafka/
       - title: "Kubernetes"
         url: /tags/kubernetes/
       - title: "Microservices"
