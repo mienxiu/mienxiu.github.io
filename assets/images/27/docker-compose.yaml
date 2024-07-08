@@ -1,0 +1,56 @@
+services:
+  elasticsearch:
+    image: elasticsearch:8.13.4
+    container_name: elasticsearch
+    networks:
+      - elastic
+    ports:
+      - 9200:9200
+    environment:
+      node.name: elasticsearch
+      discovery.type: single-node
+      ELASTIC_PASSWORD: elasticpassword
+      xpack.security.enabled: true
+    command: >
+      bash -c '
+        # Start Elasticsearch in the background
+        /usr/local/bin/docker-entrypoint.sh eswrapper &
+
+        echo "Waiting for Elasticsearch availability";
+        until curl -s http://localhost:9200 | grep -q "missing authentication credentials"; do sleep 10; done;
+        echo "Setting kibana_system password";
+        curl -s -X POST -u "elastic:elasticpassword" -H "Content-Type: application/json" http://localhost:9200/_security/user/kibana_system/_password -d "{\"password\":\"kibanapassword\"}"
+        echo "All done!";
+        
+        # Keep the container running
+        wait 
+      '
+    healthcheck:
+      interval: 10s
+      retries: 12
+      test: curl -s http://localhost:9200/_cluster/health | grep -vq '"status":"red"'
+    restart: always
+
+  kibana:
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    image: kibana:8.13.4
+    container_name: kibana
+    networks:
+      - elastic
+    ports:
+      - 5601:5601
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_USERNAME: kibana_system
+      ELASTICSEARCH_PASSWORD: kibanapassword
+    healthcheck:
+      interval: 10s
+      retries: 12
+      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:5601/api/status
+    restart: always
+
+networks:
+  elastic:
+    driver: bridge

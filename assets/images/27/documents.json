@@ -1,0 +1,159 @@
+{
+    "took": 2,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 4,
+            "relation": "eq"
+        },
+        "max_score": 1,
+        "hits": [
+            {
+                "_index": "products",
+                "_id": "B2JnkpABU9yEyEHL3Bei",
+                "_score": 1,
+                "_source": {
+                    "id": "1",
+                    "name": "Phone 1",
+                    "facets": [
+                        {
+                            "name": "color",
+                            "code": "1",
+                            "values": [
+                                {
+                                    "name": "Black",
+                                    "code": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "capacity",
+                            "code": "2",
+                            "values": [
+                                {
+                                    "name": "128GB",
+                                    "code": "1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "_index": "products",
+                "_id": "CGJnkpABU9yEyEHL7BdH",
+                "_score": 1,
+                "_source": {
+                    "id": "2",
+                    "name": "Phone 2",
+                    "facets": [
+                        {
+                            "name": "color",
+                            "code": "1",
+                            "values": [
+                                {
+                                    "name": "Red",
+                                    "code": "2"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "capacity",
+                            "code": "2",
+                            "values": [
+                                {
+                                    "name": "256GB",
+                                    "code": "2"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "_index": "products",
+                "_id": "CWJnkpABU9yEyEHL_xft",
+                "_score": 1,
+                "_source": {
+                    "id": "3",
+                    "name": "Phone 3",
+                    "facets": [
+                        {
+                            "name": "color",
+                            "code": "1",
+                            "values": [
+                                {
+                                    "name": "Black",
+                                    "code": "1"
+                                },
+                                {
+                                    "name": "Red",
+                                    "code": "2"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "capacity",
+                            "code": "2",
+                            "values": [
+                                {
+                                    "name": "128GB",
+                                    "code": "1"
+                                },
+                                {
+                                    "name": "256GB",
+                                    "code": "2"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "_index": "products",
+                "_id": "CmJokpABU9yEyEHLRhe6",
+                "_score": 1,
+                "_source": {
+                    "id": "4",
+                    "name": "Phone 4",
+                    "facets": [
+                        {
+                            "name": "color",
+                            "code": "1",
+                            "values": [
+                                {
+                                    "name": "Black",
+                                    "code": "1"
+                                },
+                                {
+                                    "name": "Blue",
+                                    "code": "3"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "capacity",
+                            "code": "2",
+                            "values": [
+                                {
+                                    "name": "256GB",
+                                    "code": "2"
+                                },
+                                {
+                                    "name": "512GB",
+                                    "code": "3"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
