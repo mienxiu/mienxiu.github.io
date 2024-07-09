@@ -30,7 +30,7 @@ Monorepos and the one-version rule are distinct concepts, however, they are clos
 
 This post is my attempt to explain the one-version rule and monorepos particularly in the context of microservices.
 
-![three circle of one-Version rule, monorepo and microservices](/assets/images/21/three_circles.png)
+![three circle of one-Version rule, monorepo and microservices](/assets/posts/21/three_circles.png)
 
 ## The One-Version Rule
 The core idea of the "One-Version" rule is that:
@@ -46,12 +46,12 @@ This problem occurs when multiple packages depend on different versions of a com
 
 Imagine a scenario where you're developing an application that depends on two packages, `package_a` and `package_b`, both of which have a dependency on a shared third-party package named `package_c`.
 
-![diamond dependency - initial state](/assets/images/21/normal_state.png)
+![diamond dependency - initial state](/assets/posts/21/normal_state.png)
 
 Now suppose that `package_c` releases a new version and `package_b` updates to use that new version of `package_c`, while `package_a` remains compatible only with the older version of `package_c`.
 Here, you have a conflict as only one version of `package_c` can exist in the project.
 
-![diamond dependency - broken state](/assets/images/21/broken_state.png)
+![diamond dependency - broken state](/assets/posts/21/broken_state.png)
 
 {: .notice--info}
 If you use package management system like [`pip`](https://pip.pypa.io/en/stable/), it would throw an error unless you let it automatically solve the dependency conflict.
@@ -89,7 +89,7 @@ Setting up a clear deadline for the removal of the old versions can be helpful t
 
 If you push this rule to the extreme, it's even possible to not do API versioning at all.
 
-![No API versioning](/assets/images/21/no_api_versioning.png)
+![No API versioning](/assets/posts/21/no_api_versioning.png)
 
 While it seems somewhat radical, I could reinforce my thoughts after reading this [excellent article](https://devops.com/7-principles-for-using-microservices-to-build-an-api-that-lasts/).
 
@@ -102,7 +102,7 @@ By maintaining only a single endpoint of an API at any given time, we can achiev
 A monorepo (short for "monolithic repository") is a single repository that contains the codebase for an entire application or system.
 This includes all the services, packages or libraries, and components that make up the application.
 
-![polyrepo and monorepo](/assets/images/21/polyrepo_and_monorepo.png)
+![polyrepo and monorepo](/assets/posts/21/polyrepo_and_monorepo.png)
 
 The advantages of having a single central repository over having multiple fine-grained repos can be grouped into three categories:
 - Development efficiency
@@ -132,7 +132,7 @@ The complexity adds up if the services have different deployment environments an
 
 In monorepos, larger tests become easier since deploying real services are simplified due to its centralized CI/CD pipeline and a shared codebase.
 
-![End-to-end testing in monorepo](/assets/images/21/end_to_end_testing_in_monorepo.png)
+![End-to-end testing in monorepo](/assets/posts/21/end_to_end_testing_in_monorepo.png)
 
 However, monorepos come with the following disadvantages:
 - Overhead:

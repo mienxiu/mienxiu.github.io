@@ -105,7 +105,7 @@ priority = value / cost
 ```
 
 The following graph represents the priority equation with each value ranging from 0 to 10, for example:
-![Feature request priority based on cost and value](/assets/images/26/feature_request_priority_based_on_cost_and_value.png)
+![Feature request priority based on cost and value](/assets/posts/26/feature_request_priority_based_on_cost_and_value.png)
 
 This is a fundamental concept for making strategic decisions in business and project management, which is very obvious.
 
@@ -164,4 +164,4 @@ With proper planning and strategy, this approach can be particularly useful in m
 I think any *designer* like me who appreciates the value of simplicity would empathize with many parts of this book.
 While many things may just seem obvious, it was a good read to bolster the importance of simplicity through the experiences of one brilliant software architect.
 
-![Book Cover](/assets/images/26/book_cover.jpeg)
+![Book Cover](/assets/posts/26/book_cover.jpeg)

@@ -68,7 +68,7 @@ In this context, the `FlightBookingProcessor` acts as the *dependent* or *client
 More specifically, the `PaypalPaymentProcessor` is an *implicit* dependency.
 
 The following diagram describes the relationship between these two classes:
-![The relationship without DI](/assets/images/25/relationship_diagram_without_di.png)
+![The relationship without DI](/assets/posts/25/relationship_diagram_without_di.png)
 
 Now, suppose the organization behind this app decides to expand its business to another region.
 And due to specific requirements in that region, it is required to integrate `Stripe` as the payment platform.
@@ -371,7 +371,7 @@ class FlightBookingProcessor:
 ```
 By depending on the abstract `PaymentProcessor`, `FlightBookingProcessor` can now utilize any payment processor implementation as long as it adheres to the `PaymentProcessor` interface.
 As a result, both `FlightBookingProcessor` and `PaypalPaymentProcessor` now depend on the abstraction `PaymentProcessor`:
-![The relationship with DI](/assets/images/25/relationship_diagram_with_di.png)
+![The relationship with DI](/assets/posts/25/relationship_diagram_with_di.png)
 
 One might argue that abstractions can also change, potentially breaking their dependents.
 That's correct.

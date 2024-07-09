@@ -28,7 +28,7 @@ Any observed deviation between two states is handled by Argo CD application cont
 The previous deployment workflow of our dev team was mostly carried out through [GitHub Actions](https://github.com/features/actions), a CI/CD platform provided by GitHub.
 The workflow would be described as the following diagram:
 
-![previous deployment workflow](/assets/images/18/previous_workflow.png)
+![previous deployment workflow](/assets/posts/18/previous_workflow.png)
 
 To explain it in more detail,
 1. a developer pushes a commit to the source code repository (app repo)
@@ -81,7 +81,7 @@ For example, even with the central place to store all manifests, having drifted 
 ### Overview
 The following diagram describes the current deployment workflow using GitOps pattern:
 
-![gitops workflow](/assets/images/18/gitops_workflow.png)
+![gitops workflow](/assets/posts/18/gitops_workflow.png)
 
 To explain it in more detail,
 1. a developer pushes a commit to the source code repository (app repo)
@@ -173,14 +173,14 @@ Let me elaborate on the process of configuring GitOps.
 6. Test.
   If everything is correctly set up, once you push a new commit to your app repo, Argo CD will find the change between app repo and config repo, and then automatically update the corresponding resource.
   You can also manually update the resource by clicking the `SYNC` button in the web UI:
-  ![sync button on web UI](/assets/images/18/sync_button_on_web_ui.png)
+  ![sync button on web UI](/assets/posts/18/sync_button_on_web_ui.png)
 
 The update might take some time as [the default polling interval is 3 minutes](https://argo-cd.readthedocs.io/en/stable/faq/#how-often-does-argo-cd-check-for-changes-to-my-git-or-helm-repository).
 You can update this value by changing the `timeout.reconciliation` value in the `argocd-cm` config map.
 {: .notice--info}
 
 Note that although the example in this post is specific to a particular case as it only deploys `Deployment` and the process described is very simplified, you can integrate Argo CD into any other resources in your kubernetes cluster:
-![Argo CD example](/assets/images/18/argocd_example.png)
+![Argo CD example](/assets/posts/18/argocd_example.png)
 
 ## Trade-offs
 Here are the key pros and cons of GitOps I feel worth to mention.

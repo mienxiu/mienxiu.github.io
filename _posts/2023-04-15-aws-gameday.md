@@ -8,7 +8,7 @@ post_no: 19
 On April 14, my teammates and I participated in AWS GameDay 2023 and took 1st place.
 (team name: justintime [@buzzni](https://github.com/buzzni))
 
-![GameDay awarding](/assets/images/19/awarding.jpg)
+![GameDay awarding](/assets/posts/19/awarding.jpg)
 
 Meet our winners:
 - [Mickey](https://github.com/mienxiu) (software engineer)
@@ -20,7 +20,7 @@ Meet our winners:
 ## About AWS GameDay
 > GameDay is a collaborative learning exercise that tests skills in implementing AWS solutions to solve real-world problems in a gamified, risk-free environment. This is a completely hands-on opportunity for technical professionals to explore AWS services, architecture patterns, best practices, and group cooperation. ([source](https://aws.amazon.com/gameday/))
 
-![preview](/assets/images/19/preview.png)
+![preview](/assets/posts/19/preview.png)
 
 Amazon created GameDay in the early 2000s and the events are held in many countries of the world today and participants come from various fields including software engineering, system administration, DevOps engineering, and more.
 
@@ -38,7 +38,7 @@ The goal was to serve incoming requests as reliable as possible with the minimum
 That is, the more reliable we handle requests and the less cost we spend, the higher the score becomes.
 And understandably, the trend can go negative if we use too much resources or fail too many requests.
 
-![scoreboard](/assets/images/19/scoreboard.png)
+![scoreboard](/assets/posts/19/scoreboard.png)
 
 Here are some of the checklist we, as Unicorn Rental's cloud administrators, constantly needed to monitor to maximize profit:
 - Is service working normally?
@@ -51,7 +51,7 @@ After all, it all comes down to building teamwork to solve all of these problems
 ## Group Cooperation
 One of the key success factors in the game is indeed teamwork.
 
-![teamwork](/assets/images/19/teamwork.png)
+![teamwork](/assets/posts/19/teamwork.png)
 
 At the beginning of the game, there were not much disruption.
 But as time passes, the participants started to encounter situations where something has gone wrong.
@@ -81,6 +81,6 @@ It was fun and challenging.
 
 I highly recommend you grap it if you ever get a chance to join AWS GameDay!
 
-![award](/assets/images/19/award.png)
+![award](/assets/posts/19/award.png)
 
 *This post is translated into Korean and republished on [buzzni's blog](https://buzzni.com/blog/363)*.

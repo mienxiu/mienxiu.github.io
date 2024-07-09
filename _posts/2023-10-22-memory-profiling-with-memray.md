@@ -35,7 +35,7 @@ It creates arenas with a fixed size of 1 MiB on 64-bit platforms or 256 KiB on 3
 This way, it can avoid calling too many memory allocation requests for all small objects that are likely to be created more frequently than larger ones.
 
 The diagram below illustrates an example of arenas:
-![arenas](/assets/images/22/arenas.png)
+![arenas](/assets/posts/22/arenas.png)
 
 To describe each data structure briefly:
 - Areans are subdivided into pools by the [*size class*](https://github.com/python/cpython/blob/3.11/Objects/obmalloc.c#L844-L857).
@@ -114,7 +114,7 @@ Wrote memray-flamegraph-app.html
 ```
 
 Here is how our flame graph looks like:
-![flame graph report of app.py](/assets/images/22/memray_flamegraph_report.png)
+![flame graph report of app.py](/assets/posts/22/memray_flamegraph_report.png)
 
 There is not much to see in our first example but this is just to illustrate how it looks from the scratch.
 
@@ -145,14 +145,14 @@ import httpx
 ```
 
 The flame graph looks like the following:
-![flame graph report of httpx](/assets/images/22/memray_flamegraph_report_httpx.png)
+![flame graph report of httpx](/assets/posts/22/memray_flamegraph_report_httpx.png)
 
 By putting the mouse pointer on the third topmost stack frame which is `import httpx`, we can see that it requested memory allocations of 9.5 MiB.
 Under that frame, the child frames include other external libraries that `httpx` imports (depends on) such as `httpcore` and `certifi`.
 You can expand those frames to look inside by clicking them.
 
 If you are not interested in the memory allocations related to the Python import system, checking `Hide Import System Frames` gives you the cleaner graph:
-![flame graph report of httpx](/assets/images/22/memray_flamegraph_report_httpx_hide_import.png)
+![flame graph report of httpx](/assets/posts/22/memray_flamegraph_report_httpx_hide_import.png)
 
 Now that we have seen how Python's import system allocates memory for importing libraries, we will see how the user code appears in the graph.
 Here is the example:
@@ -174,7 +174,7 @@ baz()
 ```
 
 The flame graph with the `<root>` at the top looks as follows:
-![flame graph for baz](/assets/images/22/baz_stack_frame.png)
+![flame graph for baz](/assets/posts/22/baz_stack_frame.png)
 
 `baz()` called `foo()` and `bar()`, and the width of `foo()`(`array = [0 for _ in range(10000)]`) is wider than that of `bar()`(`array = [0 for _ in range(20000)]`) as it allocated more memory than `bar()`.
 
@@ -260,7 +260,7 @@ for i in range(10):
 ```
 
 At the top of the flame graph page generated from this code includes a chart that visualizes the process's memory usage over time:
-![circular references - heap size over time](/assets/images/22/circular_reference_heap_size.png)
+![circular references - heap size over time](/assets/posts/22/circular_reference_heap_size.png)
 
 You can observe that the peak memory usage is approximately 77.3 MiB for 10 iterations.
 As the number of executions increases, the peak memory usage of our process also rises.

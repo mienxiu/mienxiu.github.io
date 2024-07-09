@@ -392,7 +392,7 @@ Specifically, the problem with heterogeneous test runners arises from difference
 For instance, one test runner might lack some dependencies to run the tests.
 In this case, a test may pass on one runner but fail on another, leading to inconsistent results.
 
-![Test failure due to heterogeneous test runners](/assets/images/24/test_failure_due_to_heterogeneous_test_runners.png)
+![Test failure due to heterogeneous test runners](/assets/posts/24/test_failure_due_to_heterogeneous_test_runners.png)
 (A snippet of log from Github Actions.
 We use self-hosted runners to run tests and encountered this issue from time to time.
 Some of the test runners was missing a required dependency to run the test.)

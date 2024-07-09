@@ -22,7 +22,7 @@ Because such information is stored in the process control block, if we wanted to
 What the OS really does is that it only separates the information such as stack and registers from the entire PCB to represent the execution state of the kernel-level threads.
 In this way, the information such as virtual address mappings that can be shared among all of the kernel-level threads won't have to be replicated.
 
-![shared PCB](/assets/images/15/threads0.png)
+![shared PCB](/assets/posts/15/threads0.png)
 
 With a multi-core system, the OS needs to have a data structure to represent the CPU and maintains a relationship between the CPU and the kernel-level threads.
 This CPU data structure has information such as:
@@ -50,14 +50,14 @@ When a process starts, the kernel gives a default number of kernel-level threads
 It means that if we have a multithreaded process and its concurrency level is more than the default number of kernel-level threads, the process would have to request more kernel-level threads.
 A system call for this operation is `set_concurrency`.
 
-![set_concurrency](/assets/images/15/threads1.png)
+![set_concurrency](/assets/posts/15/threads1.png)
 
 And suppose that a process has four user-level threads and only two of them are actually executing and the others are waiting on I/O at any given point of time.
 If the number of given kernel-level threads are two and their corresponding user-level threads block, the kernel-level threads are also blocked and the process as a whole is blocked too as there is no more underlying kernel-level threads for the other user-level threads to be mapped on.
 
 In order to avoid such blocking issue, the kernel can notify the user-level thread library before it blocks the kernel-level threads so that the user-level library can find any executable user-level thread in its run queue and, in response, calls a system call to request more kernel-level threads or lightweight processes.
 
-![notification signal](/assets/images/15/threads2.png)
+![notification signal](/assets/posts/15/threads2.png)
 
 The other problem of a lack of visibility is that if the kernel preempts a kernel-level thread that is associated with a user-level thread that has a lock, the execution of this critical section is stopped and the other user-level threads that require that same lock in the same process will not be able to continue untill the preempted kernel-level thread is scheduled again and the critical section is completed so that the lock is released.
 The one-to-one multithreading model is the one that can address some of these issues.
@@ -131,7 +131,7 @@ On the other hand, the stack pointer will remain the same.
 The deadlock problem occurs if the handling code requires a mutex that is already acquired and not yet released by the thread that was interrupted.
 The handling routine will not complete as the interrupted thread has the mutex, and that thread will not release the mutex until the handling routine completes the execution.
 
-![set_concurrency](/assets/images/15/threads3.png)
+![set_concurrency](/assets/posts/15/threads3.png)
 
 Masks are used to avoid the deadlock problem by enabling or disabling whether the handling routine can execute.
 If the interrupt or signal is enabled, the handling routine is invoked and proceeded, otherwise, the interrupt or signal remains pending and will be handled later when the mask value changes.

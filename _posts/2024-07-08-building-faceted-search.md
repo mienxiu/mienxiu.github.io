@@ -1,5 +1,5 @@
 ---
-title: Building Faceted Search with Elasticsearch
+title: Building Faceted Search using Elasticsearch
 tags: [elasticsearch, python]
 toc: true
 toc_sticky: true
@@ -10,7 +10,7 @@ Faceted search is a type of search that enables users to narrow down search resu
 This method is particularly useful on e-commerce platforms, as it enhances the user experience by allowing users to efficiently refine their search queries based on specific criteria and preferences.
 
 Below is an example of a faceted search interface for a query like 'phone' on Amazon:
-![Amazon's faceted search interface](/assets/images/27/amazons_faceted_search_interface.png)
+![Amazon's faceted search interface](/assets/posts/27/amazons_faceted_search_interface.png)
 
 In the picture above, the left pane shows available facets based on the items being searched.
 Clicking on any of the values in the facets will narrow down results accordingly.
@@ -20,7 +20,7 @@ Therefore, a faceted search system's functions can be broadly divided into two c
 - Searching by facets:
     Narrowing down search results based on specific facets.
 
-In this post, I am going to elaborate on how to build this faceted search with Elasticsearch, which is a *document-oriented* database.
+In this post, I will explain how to build a faceted search using Elasticsearch, which is a *document-oriented* database.
 I will also use the Kibana Console to interact with Elasticsearch.
 The specific versions of Elasticsearch and Kibana in this tutorial are both `8.13.4`.
 
@@ -43,7 +43,7 @@ The faceted search system we are about to build is for an e-commerce platform wh
 For instance, a phone can have facets like color or capacity, where color can have values such as "black" or "red" and capacity can have values such as "128GB" or "256GB".
 
 The relationships among product, facet, and value would be described as follows:
-![relationships among product, facet, and value](/assets/images/27/product_facet_value.png)
+![relationships among product, facet, and value](/assets/posts/27/product_facet_value.png)
 
 ### Defining fields
 First, we are going to have a `facets` field to store all facets data.
@@ -136,7 +136,7 @@ Skip this section unless you want to run Elasticsearch to follow this tutorial i
 
 You can run Elasticsearch in your local environment by using Docker Compose.
 Follow the steps to run Elasticsearch and Kibana:
-1. Save [the compose file](/assets/images/27/docker-compose.yaml) in your directory.
+1. Save [the compose file](/assets/posts/27/docker-compose.yaml) in your directory.
 2. Run `docker-compose up` in the same directory to run Elasticsearch and Kibana.
 3. Open your web browser and navigate to http://localhost:5601, which is the Kibana URL.
 4. Log in with the the following credentials:
@@ -145,7 +145,7 @@ Follow the steps to run Elasticsearch and Kibana:
 4. Click on `Dev Tools` in the `Management` section in the side navigation menu.
 
 If everything is done successfully, you should see the Console application:
-![Kibana Console](/assets/images/27/kibana_console.png)
+![Kibana Console](/assets/posts/27/kibana_console.png)
 
 This will provide an interactive interface where you can send requests to Elasticsearch.
 
@@ -378,7 +378,7 @@ GET /products/_search
 }
 ```
 
-The response JSON should look something like [this](/assets/images/27/documents.json).
+The response JSON should look something like [this](/assets/posts/27/documents.json).
 (Since the full JSON response is quite extensive, I thought it'd be better to provide an external link rather than including it on this page or using a collapsible section to avoid disrupting the post.)
 
 ## Getting facet distribution
@@ -431,7 +431,7 @@ GET /products/_search
 }
 ```
 
-The `aggregations` object from the response JSON can be found [here](/assets/images/27/aggregations.json).
+The `aggregations` object from the response JSON can be found [here](/assets/posts/27/aggregations.json).
 
 I want to mention that you don't necessarily set the `size` to `0` if you are performing the search and aggregation at once.
 It's just to get the facet distribution, not the search results.
@@ -763,7 +763,7 @@ GET /products/_search
 }
 ```
 
-The response JSON would look something like [this](/assets/images/27/filtered_documents.json).
+The response JSON would look something like [this](/assets/posts/27/filtered_documents.json).
 
 It has retrieved three documents with the `black` value in their `color` facet.
 Below is the table version of the response JSON for the sake of readability:

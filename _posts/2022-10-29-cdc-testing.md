@@ -22,7 +22,7 @@ It's the released-intended counterpart, so to speak.
 
 Test stubs and mock objects are the types of test doubles.
 
-![test doubles](/assets/images/14/test_doubles.png)
+![test doubles](/assets/posts/14/test_doubles.png)
 
 With test doubles, tests are easy to write and fast to execute, because there is no need to deploy the required dependency components.
 
@@ -41,7 +41,7 @@ In the context of microservices, the more services, the less confident the tests
 ### End-to-end (E2E) Testing
 E2E testing is a higher-level approach that typically involves many integrations because all the components should be operational in order to simulate the actual user scenario from the end user's experience.
 
-![end-to-end testing](/assets/images/14/e2e_testing.png)
+![end-to-end testing](/assets/posts/14/e2e_testing.png)
 
 E2E testing provides the highest confidence in the application.
 
@@ -51,7 +51,7 @@ It is slower, more complex, and more brittle than than the lower-level tests suc
 For these reasons, it is often recommended that you write fewer E2E tests and invest in writing more lower-level tests.
 The well-known test pyramid is a good representation of what's being said:
 
-![test pyramid](/assets/images/14/test_pyramid.png)
+![test pyramid](/assets/posts/14/test_pyramid.png)
 
 In the context of microservices, the more services, the more expensive to write and execute tests.
 
@@ -95,7 +95,7 @@ Knowing how it works without a broker helps understanding the underlying idea of
 
 Let me simplify and explain the process in easy terms as much as possible to focus on the essential concept of this testing methodology.
 
-![test without broker](/assets/images/14/test_without_broker.png)
+![test without broker](/assets/posts/14/test_without_broker.png)
 
 1. The consumer-side dev team writes a test case using a provider mock.
     The provider mock is provided by the integrated CDC testing framework.
@@ -114,7 +114,7 @@ Two take-aways here are:
 ### With a Broker
 The only difference is that you don't share the contract with provider but publish it to a broker.
 
-![test with broker](/assets/images/14/test_with_broker.png)
+![test with broker](/assets/posts/14/test_with_broker.png)
 
 Not only the broker acts as a central server to store and share contracts, it also further enhances the CDC testing compared to that without the broker.
 
@@ -185,12 +185,12 @@ The product service has the REST API too for providing product data to the order
 
 The sequence diagram below shows the process interactions between two services when a client places an order:
 
-![sequence diagram for create_order](/assets/images/14/create_order.png)
+![sequence diagram for create_order](/assets/posts/14/create_order.png)
 
 Do note that in our context both services act as both consumer and provider.
 The interactions are described as follows:
 
-![consumer and provider](/assets/images/14/consumer_provider.png)
+![consumer and provider](/assets/posts/14/consumer_provider.png)
 
 Next are the implementation details:
 ```python
@@ -467,11 +467,11 @@ What happened is as follows:
 
 You can check out that a new pact is listed in the broker's web UI which can be accessed through [http://localhost:9292](http://localhost:9292) if you have run the broker locally on port 9292:
 
-![web UI](/assets/images/14/pact0.png)
+![web UI](/assets/posts/14/pact0.png)
 
 It also provides the detailed information about a pact:
 
-![web UI](/assets/images/14/pact1.png)
+![web UI](/assets/posts/14/pact1.png)
 
 #### Provider Side (Product)
 There are two ways to run verifications on the provider side:
@@ -545,7 +545,7 @@ Verified!
 ```
 
 Now you can see the updated status in the web UI:
-![web UI](/assets/images/14/pact2.png)
+![web UI](/assets/posts/14/pact2.png)
 
 What if the test fails?
 You can simulate it by modifying our product API to return a string-typed of `id`:
@@ -591,7 +591,7 @@ PACT_DESCRIPTION='a request for product 1' PACT_PROVIDER_STATE='Product 1 exists
 ```
 
 You can also see the verification status in the web UI:
-![web UI](/assets/images/14/pact3.png)
+![web UI](/assets/posts/14/pact3.png)
 
 A contract modification is essentially drived by its consumer.
 For example, you would want additional information of a product like `seller_id`:
@@ -630,7 +630,7 @@ Otherwise, Pact will not publish the contract due to a version conflict.
 
 And the verification status becomes `changed`:
 
-![web UI](/assets/images/14/pact4.png)
+![web UI](/assets/posts/14/pact4.png)
 
 At this time, the same version of provider verifying the changed contract will get an error, which ideally should be known to the provider team:
 ```
@@ -718,7 +718,7 @@ pytest test_update_quantity.py
 
 A new pact is listed on Pacts in Pact Broker's web UI:
 
-![web UI](/assets/images/14/pact5.png)
+![web UI](/assets/posts/14/pact5.png)
 
 #### Provider Side (Order)
 ```python
@@ -754,7 +754,7 @@ pytest test_provider.py
 
 And the verification result is updated in Pact Broker:
 
-![web UI](/assets/images/14/pact6.png)
+![web UI](/assets/posts/14/pact6.png)
 
 One important note is that the name of the handler `An order is created` must be the same as the parameter of `pact.given()` in the consumer-side test case.
 

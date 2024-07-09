@@ -22,7 +22,7 @@ For our purpose, we will first create a function and package it into a container
 The next step is to create a Lambda function.
 And lastly, create an API Gateway and integrate it with the Lambda.
 
-![diagram](/assets/images/15/diagram.png)
+![diagram](/assets/posts/15/diagram.png)
 
 Our programming language of choice for this tutorial is Python and all the required AWS resources are deployed using AWS CDK.
 

@@ -8,7 +8,7 @@ post_no: 17
 A CPU scheduler is an operating system module that decides which process in the ready queue is allocated a CPU.
 It checks all of the tasks in the ready queue to choose the one to dispatch to the CPU.
 
-![scheduling](/assets/images/17/scheduling.png)
+![scheduling](/assets/posts/17/scheduling.png)
 
 The CPU scheduler typically runs with any of the following conditions:
 - the CPU becomes idle (e.g. a process makes an I/O request)
@@ -76,7 +76,7 @@ For example, the following table shows three tasks with the execution time and a
 
 When T1 and T3 arrive, T2 should be preempted as it still has 4 seconds to be finished and both T2 and T3 have the shorter remaining time than T2 has.
 
-![SRTF](/assets/images/17/srtf.png)
+![SRTF](/assets/posts/17/srtf.png)
 
 Just like SJF scheduling, we don't really know the exact execution time of a task.
 In practice, the scheduler has to estimate the execution time by using heuristics based on factors such as the past execution time.
@@ -95,7 +95,7 @@ The following table adds priority levels to the same table in the previous examp
 Assume that 1 is the highest priority level, the scheduler will preempt T2 and start T1 next.
 As T3 is of the lowest priority, it is scheduled after T2 completes its execution.
 
-![priority scheduling](/assets/images/17/priority.png)
+![priority scheduling](/assets/posts/17/priority.png)
 
 One issue with this algorithm is *starvation*, in which low priority tasks can be stuck in a run queue when the higher priority tasks keep arriving in the higher priority run queue.
 To address starvation, the scheduler can use a mechanism that updates the priority based on the time a task spent in the run queue.
@@ -123,7 +123,7 @@ Assume that we have three tasks that arrive at the same time:
 
 With RR with 1 timeslice, T2 will be preempted after a timeslice and re-execute after T3 completes.
 
-![round-robin](/assets/images/17/roundrobin.png)
+![round-robin](/assets/posts/17/roundrobin.png)
 
 The same metrics we used in the previous example are as follows:
 
@@ -144,7 +144,7 @@ In general, choosing a larger timeslice value is better with CPU-bound tasks, an
 A multilevel feedback queue consists of multiple ready queues, each of which has different scheduling policy levels.
 It is designed to make the most out of the CPU.
 
-![Multilevel feedback queues](/assets/images/17/multilevel_feedback_queue.png)
+![Multilevel feedback queues](/assets/posts/17/multilevel_feedback_queue.png)
 
 In this algorithm, a new task is put in the first queue, but it moves between queues depending on the characteristics of their CPU bursts.
 
@@ -176,7 +176,7 @@ On the other hand, a task with a shorter sleep time is considered as more CPU-bo
 The runqueue has 2 arrays of tasks - active array and expired array, each array had 140 priorities.
 And each entry in an array points to the first task of a linked list of the tasks.
 
-![Runqueue of O(1) scheduler](/assets/images/17/o1_scheduler.png)
+![Runqueue of O(1) scheduler](/assets/posts/17/o1_scheduler.png)
 
 The scheduler uses the active list to pick the next task to run and it allows the scheduler to take constant time to select a task.
 
@@ -194,7 +194,7 @@ The Completely Fair Scheduler, the default scheduler for non-real time tasks in 
 It uses a red-black tree as a runqueue structure whose key is based on the `vruntime`.
 And a task is added to the tree when it becomes runnable, and it is removed from the tree when it is not runnable.
 
-![Completely Fair Scheduler](/assets/images/17/cfs.png)
+![Completely Fair Scheduler](/assets/posts/17/cfs.png)
 
 As seen in the figure above, the leftmost task in the tree has the smallest `vruntime` value and has the highest priority, which is the next task to run.
 The tasks on the right side of the tree have spent more `vruntime` so that they don't get scheduled as quickly as the ones of the left side of the tree.
@@ -221,7 +221,7 @@ Therefore, it helps with the performance if the task is scheduled on the same pr
 With multiple memory nodes, the general solution to achieve cache affinity is to load balance tasks in a way that tasks are bound to the processors that are closer to the memory node where their state is.
 This is called *NUMA-aware scheduling*, where NUMA stands for Non-Uniform Memory Access.
 
-![NUMA node](/assets/images/17/numa_node.png)
+![NUMA node](/assets/posts/17/numa_node.png)
 
 ## Hyperthreading
 Hyperthreading is Intel's multithreading implementation for assigning multiple hardware threads to a single core.
@@ -236,7 +236,7 @@ This so-called multicore processor is faster and more energy-efficient than a si
 
 With hyperthreading, if one hardware thread is on *memory stall*, where a processor is waiting for the data to become available when it accesses memory, the core can context switch to another software thread.
 
-![Hyperthreading](/assets/images/17/hyperthreading.png)
+![Hyperthreading](/assets/posts/17/hyperthreading.png)
 
 Note that a processing core can only execute one hardware thread at a time because its processor pipeline must be shared among its hardware threads.
 Therefore, co-scheduling of compute-bound and memory-bound threads can best benefit from this multi-core processor.

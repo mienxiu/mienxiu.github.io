@@ -786,13 +786,13 @@ cdk deploy EksStack
 ```
 
 To switch to `MastersRole`, navigate to your user name on the navigation bar in the upper right of the console, and choose `Switch Role`:
-![Swith Role in the console](/assets/images/23/switch_role0.png)
+![Swith Role in the console](/assets/posts/23/switch_role0.png)
 
 Enter `Account`, `Role`, and `Display Name` (optional) and choose `Switch Role`:
-![Swith Role](/assets/images/23/switch_role1.png)
+![Swith Role](/assets/posts/23/switch_role1.png)
 
 Now you are able to see `Nodes` section on the `Compute` tab in the console:
-![Nodes section on the Compute tab in the console](/assets/images/23/cluster_nodes.png)
+![Nodes section on the Compute tab in the console](/assets/posts/23/cluster_nodes.png)
 
 If `MastersRole` is configured to be assumed by any principal, any IAM user can switch to the role.
 You can limit this permission by changing `assumed_by=iam.AnyPrincipal()` to `assumed_by=iam.ArnPrincipal(some_arn)`
