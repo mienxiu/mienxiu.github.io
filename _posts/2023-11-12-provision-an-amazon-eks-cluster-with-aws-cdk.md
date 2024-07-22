@@ -36,8 +36,8 @@ You need to have an AWS account and have configured the AWS CLI to interact with
 
 <!-- https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_prerequisites -->
 Here's a list of requirements and links to install to use the AWS CDK:
-- [Node.js 14.15.0 or later](https://nodejs.org/en)
-- Python 3.7 or later including `pip` (I recommend using virtual environment such as [`pyenv`](https://github.com/pyenv/pyenv) to installation)
+- Node.js 14.15.0 or later (I recommend using a version manager such as [`nvm`](https://github.com/nvm-sh/nvm) to installation)
+- Python 3.7 or later including `pip` (I recommend using a version manager such as [`pyenv`](https://github.com/pyenv/pyenv) to installation)
 
 After satisfying all the requirements, you need to install some additional packages:
 - AWS CDK Toolkit (`npm install -g aws-cdk`)
