@@ -5,6 +5,10 @@ toc: true
 toc_sticky: true
 post_no: 23
 ---
+Amazon EKS (Elastic Kubernetes Service) is a fully managed Kubernetes service that simplifies building, securing, operating, and maintaining Kubernetes clusters on AWS.
+
+This post serves as a step-by-step tutorial on provisioning an [Amazon EKS cluster]((https://docs.aws.amazon.com/eks/)) within a custom Amazon VPC, utilizing AWS CDK, specifically using L2 constructs.
+
 Previously, I posted [a tutorial](/creating-vpc-with-aws-cdk/) on creating and configuring an Amazon VPC by using AWS CDK.
 All the examples in that post are based on L1 constructs to illustrate how they represent AWS CloudFormation.
 
@@ -22,8 +26,6 @@ bucket.grant_read(user)
 ```
 
 You would otherwise have to manually figure out and write the policy using L1 constructs or CloudFormation, which can be inefficient and daunting if there's no need to fine-tune the configurations for specific exceptional cases (which I consider a scenario to avoid if possible).
-
-This post serves as a step-by-step tutorial on provisioning an [Amazon EKS cluster]((https://docs.aws.amazon.com/eks/)) within a custom Amazon VPC, utilizing AWS CDK, specifically using L2 constructs.
 
 Although the programming language for the tutorial is Python, you can use whatever familiar one among [the supported programming languages](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_languages).
 
@@ -563,6 +565,40 @@ ip-10-0-3-5.ap-northeast-3.compute.internal     Ready    <none>   2m5s   v1.27.7
 ```
 
 You can also verify that the two nodes are evenly distributed across two private subnets.
+
+#### Labels and taints
+<!-- https://aws.github.io/aws-eks-best-practices/security/docs/multitenancy/#isolating-tenant-workloads-to-specific-nodes -->
+Labels and node affinity are used to attract desired pods to specific nodes, while taints and tolerations are used to repel unwanted pods.
+This approach ensures that tenant-specific workloads are exclusively executed on nodes allocated for the respective tenants.
+
+Configuring labels and taints are also possible through the code.
+
+Below is an example of adding a node group with `labels` (`role=backend`) and `taints` (`role=backend:NoSchedule`):
+```python
+        ...
+
+        cluster.add_nodegroup_capacity(
+            id="NodeGroup2",
+            min_size=2,  # Since we employ two availability zones
+            desired_size=2,
+            max_size=4,
+            instance_types=[
+                ec2.InstanceType.of(
+                    instance_class=ec2.InstanceClass.T3,
+                    instance_size=ec2.InstanceSize.MEDIUM,
+                )
+            ],
+            disk_size=20,  # default
+            labels={"role": "backend"},
+            taints=[
+                eks.TaintSpec(
+                    effect=eks.TaintEffect.NO_SCHEDULE,
+                    key="role",
+                    value="backend",
+                )
+            ],
+        )
+```
 
 ### View Kubernetes resources in the console
 Basically, you can't view the `Resources` tab and `Nodes` section on the `Compute` tab in the AWS Management Console with the following console error message:
