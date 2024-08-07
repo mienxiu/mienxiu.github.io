@@ -58,8 +58,9 @@ In contrast, with the 'IP' target type, the load balancer forwards traffic direc
 
 ![Traffic flow of ip target-type](/assets/posts/28/traffic-flow-of-ip-target-type.png)
 
-This allows traffic to bypass the node’s additional networking layers, simplifying the network path, reducing latency, and making monitoring and troubleshooting easier.
-It also allows leveraging the load balancer's health checks, as they can directly represent the pod's status.
+This approach bypasses the node’s additional networking layers, simplifying the network path, reducing latency, and making monitoring and troubleshooting more straightforward.
+It also allows for direct utilization of the load balancer’s health checks, accurately reflecting the pod’s status.
+Additionally, using 'IP' mode can reduce cross-AZ data transfer costs, unlike 'Instance' mode, where traffic is routed through Kubernetes NodePort and ClusterIPs.
 
 The recommended target type is 'IP' because direct routing avoids additional hops and overhead, providing a more efficient and straightforward traffic flow.
 
@@ -174,9 +175,9 @@ It can also act as an internal layer 7 load balancer.
 This option supports a rich feature set of Nginx, a widely used open-source project with a strong community.
 Since it's not specific to AWS, it offers flexibility and provides a consistent ingress experience across different cloud providers or even on-premises environments.
 
-On the downside, there may be performance overhead due to the extra hops involved in routing traffic through the reverse proxy.
-It also adds some operational costs, as the cluster operator is responsible for monitoring, maintaining, and scaling.
-Additionally, it can lead to extra infrastructure costs, as dedicated node resources might be needed to isolate the proxy pods from other pods to ensure high reliability and availability.
+On the downside, this approach introduces some operational costs, as cluster operators must monitor, maintain, and scale the underlying resources.
+Additionally, it may lead to increased infrastructure costs due to the need for dedicated node resources to isolate proxy pods, ensuring high reliability and availability.
+Lastly, there could be a minor performance overhead from the extra hops involved in routing traffic through the reverse proxy.
 
 ### Overall Comparison of Load Balancer Controllers
 The following table is a summary of different controllers with their pros and cons:
@@ -478,7 +479,7 @@ echo0   10.0.3.53:8000   18m
 
 If you scale out the pods, the new addresses of those pods are registered as new targets and vice versa.
 
-The following command increases the number of pdos of `echo0` to 2:
+The following command increases the number of pods of `echo0` to 2:
 ```
 kubectl scale deployment echo0 --replicas=2 -n demo0
 ```
@@ -775,7 +776,7 @@ If you don’t explicitly specify the order, the rule order among Ingresses with
 
 When multiple Ingresses share the same load balancer via the `alb.ingress.kubernetes.io/group.name` annotation, deleting one of the Ingresses does not remove the load balancer.
 The load balancer is deleted only when all associated `Ingress` resources are deleted.
-{: notice--info}
+{: .notice--info}
 
 ### IngressClass
 `IngressClass` is a cluster-wide resource that any `Ingress` resource across all namespaces can refer to.
@@ -827,7 +828,7 @@ Additionally, setting `alb.ingress.kubernetes.io/scheme` to `internal` will make
 This is useful when you want to restrict access to your application to only resources within your VPC, enhancing security by preventing external access.
 
 For more granular access control, you can consider using a service mesh like [Istio](https://istio.io/).
-{: notice--info}
+{: .notice--info}
 
 ### Access logs
 AWS load balancers provide the option to store access logs of all requests made to them, which can be instrumental in diagnosing issues, analyzing traffic patterns, and maintaining security.
@@ -937,3 +938,4 @@ For more details, visit [this AWS documentation](https://docs.aws.amazon.com/ath
 - [EKS Best Practcies Guides on Load Balancing](https://aws.github.io/aws-eks-best-practices/networking/loadbalancing/loadbalancing/)
 - [Enable access logs for your Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html)
 - [Route application and HTTP traffic with Application Load Balancers](https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html)
+- [Addressing latency and data transfer costs on EKS using Istio](https://aws.amazon.com/blogs/containers/addressing-latency-and-data-transfer-costs-on-eks-using-istio/)

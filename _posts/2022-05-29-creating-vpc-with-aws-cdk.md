@@ -1,5 +1,5 @@
 ---
-title: Creating a VPC with AWS CDK
+title: "Creating a VPC with AWS CDK: A Guide for Former CloudFormation Users"
 tags: [aws, python]
 toc: true
 toc_sticky: true
