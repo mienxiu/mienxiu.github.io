@@ -1,6 +1,6 @@
 ---
 title: Dependency Injection and Dependency Inversion
-tags: [oop, python, refactoring]
+tags: [python, refactoring]
 toc: true
 toc_sticky: true
 post_no: 25

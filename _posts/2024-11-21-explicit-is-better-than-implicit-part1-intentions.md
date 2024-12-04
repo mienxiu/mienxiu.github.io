@@ -13,7 +13,7 @@ In this series, I'll explore why explicit designs matter, focusing on two dimens
 In [*Part 1: Intentions*](/explicit-is-better-than-implicit-part1-intentions), we'll discuss the downsides and potential risks of unclear intentions in code.
 I will also illustrate how making intentions explicit not only enhances readability but also contributes to better reliability.
 
-In *Part 2: Behaviors*, we'll discuss some commonly used programming paradigms and techniques that introduce implicit behaviors, which can lead to unexpected outcomes.
+In [*Part 2: Behaviors*](/explicit-is-better-than-implicit-part2-behaviors), we'll discuss how implicit behaviors can lead to unexpected outcomes through some commonly used programming paradigms and techniques.
 I will also focus on balancing implicit behavior with explicit clarity.
 
 ## Names
