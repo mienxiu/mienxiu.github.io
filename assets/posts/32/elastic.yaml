@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: elastic
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch
+  namespace: elastic
+spec:
+  serviceName: elasticsearch
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch
+          image: elasticsearch:8.13.4
+          env:
+            - name: node.name
+              value: "elasticsearch"
+            - name: discovery.type
+              value: "single-node"
+            - name: xpack.security.enabled
+              value: "true"
+            - name: ELASTIC_PASSWORD
+              value: "elasticpassword"
+          ports:
+            - containerPort: 9200
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              # Start Elasticsearch in the background
+              /usr/local/bin/docker-entrypoint.sh eswrapper &
+
+              # Wait for Elasticsearch availability"
+              until curl -s http://localhost:9200 | grep -q "missing authentication credentials"; do sleep 10; done;
+
+              # Set kibana_system password"
+              curl -s -X POST -u "elastic:elasticpassword" -H "Content-Type: application/json" http://localhost:9200/_security/user/kibana_system/_password -d "{\"password\":\"kibanapassword\"}"
+
+              # Keep the container running
+              wait
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: elastic
+spec:
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - name: kibana
+          image: kibana:8.13.4
+          env:
+            - name: ELASTICSEARCH_USERNAME
+              value: "kibana_system"
+            - name: ELASTICSEARCH_PASSWORD
+              value: "kibanapassword"
+            - name: SERVER_NAME
+              value: "kibana"
+            - name: TELEMETRY_OPTIN
+              value: "false"
+          ports:
+            - containerPort: 5601
+          readinessProbe:
+            httpGet:
+              path: /api/status
+              port: 5601
+            initialDelaySeconds: 10
+            periodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: elastic
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9200
+      targetPort: 9200
+  selector:
+    app: elasticsearch
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: elastic
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5601
+      targetPort: 5601
+  selector:
+    app: kibana
