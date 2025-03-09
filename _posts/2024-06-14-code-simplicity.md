@@ -16,7 +16,7 @@ This review will cover some topics I found particularly interesting and include 
 ## Good Programmers and Bad Programers
 In "Code Simplicity", Max starts by distinguishing between good programmers and bad programmers:
 > The difference between a bad programmer and a good programmer is *understanding*.
-> That is, bad programmers don’t understand what they are doing, and good programmers do.
+> That is, bad programmers don't understand what they are doing, and good programmers do.
 
 These two lines are the very first lines of the book.
 While I am not entirely sure if I agree with the statement, as I believe there are many factors that define whether a programmer is good or bad, they remain the most memorable ones after reading the book.
@@ -33,9 +33,9 @@ It enhances communication with colleagues, leading to improved productivity for 
 
 Here are some additional lines about good programmers and bad programmers:
 > So, a "good programmer" should do everything in his power to make what he writes as simple as possible to other programmers.
-> A good programmer creates things that are easy to understand, so that it’s really easy to shake out all the bugs.
+> A good programmer creates things that are easy to understand, so that it's really easy to shake out all the bugs.
 
-> Programmers who don’t fully understand their work tend to develop complex systems.
+> Programmers who don't fully understand their work tend to develop complex systems.
 
 If so, why should a good programmer prioritize simplicity?
 To answer that, we need to understand the purpose of software and its nature stated in the book:
@@ -128,7 +128,7 @@ These methods can provide insights into a change's value, helping to solve the p
 
 Here are the three flaws that go against the principles of simplicity:
 - YAGNI (You Aren't Gonna Need It)
-    - Don’t write code until you actually need it, and remove any code that isn’t being used.
+    - Don't write code until you actually need it, and remove any code that isn't being used.
 - Rigid design
     - Code should be designed based on what you know now, not on what you think will happen in the future.
 - Overengineering

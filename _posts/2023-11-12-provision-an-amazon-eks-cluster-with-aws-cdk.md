@@ -604,7 +604,7 @@ Below is an example of adding a node group with `labels` (`role=backend`) and `t
 Basically, you can't view the `Resources` tab and `Nodes` section on the `Compute` tab in the AWS Management Console with the following console error message:
 ```
 Your current IAM principal doesn't have access to Kubernetes objects on this cluster.
-This may be due to the current user or role not having Kubernetes RBAC permissions to describe cluster resources or not having an entry in the cluster’s auth config map.
+This may be due to the current user or role not having Kubernetes RBAC permissions to describe cluster resources or not having an entry in the cluster's auth config map.
 ```
 
 There are two options to make Kubernetes resources visible in the AWS Management Console for you or other users:
@@ -612,7 +612,7 @@ There are two options to make Kubernetes resources visible in the AWS Management
 - Grant permissions to IAM roles: This option allows users to use an IAM role, providing easier maintenance and when multiple users need access.
 
 I will describe both options in this post.
-You can choose whichever that meets your organization’s requirements.
+You can choose whichever that meets your organization's requirements.
 
 Whatever you choose, it is recommended that you periodically audit the `aws-auth` `ConfigMap` to see who has been granted access.
 <!-- https://aws.github.io/aws-eks-best-practices/security/docs/iam/#regularly-audit-access-to-the-cluster -->

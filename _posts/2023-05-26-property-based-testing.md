@@ -28,7 +28,7 @@ With all that in mind, a property-based testing library is just a tool that faci
 Hypothesis is a property-based testing library that helps you write property-based tests, as explained above.
 
 The following snippet describes how it works in detail:
-> It works by generating arbitrary data matching your specification and checking that your guarantee still holds in that case. If it finds an example where it doesn’t, it takes that example and cuts it down to size, simplifying it until it finds a much smaller example that still causes the problem. It then saves that example for later, so that once it has found a problem with your code it will not forget it in the future. ([Hypothesis docs](https://hypothesis.readthedocs.io/en/latest/))
+> It works by generating arbitrary data matching your specification and checking that your guarantee still holds in that case. If it finds an example where it doesn't, it takes that example and cuts it down to size, simplifying it until it finds a much smaller example that still causes the problem. It then saves that example for later, so that once it has found a problem with your code it will not forget it in the future. ([Hypothesis docs](https://hypothesis.readthedocs.io/en/latest/))
 
 We are going to absorb this description with an example.
 

@@ -624,7 +624,7 @@ Here's an example of how you can sort the `values` by count in ascending order:
 }
 ```
 
-And here’s an example of how you can sort the `values` by alphabetical order:
+And here's an example of how you can sort the `values` by alphabetical order:
 ```json
 "terms": {
     "field": "facets.values.code",

@@ -765,7 +765,7 @@ One can try resolving the issue by providing a default value for the `status` ar
 But that modification does not actually mitigate the brittleness inherent in the test.
 (I am not necessarily saying it's a bad idea. It's rather reasonable considering that most orders would start with `pending` status.)
 Maybe it's both unrelated but also breaking.
-With that being said, I want to point out that it’s quite difficult to avoid them entirely in the real world.
+With that being said, I want to point out that it's quite difficult to avoid them entirely in the real world.
 
 Here's an excerpt from [Software Engineering at Google](https://www.oreilly.com/library/view/software-engineering-at/9781492082781/):
 > The ideal test is unchanging: after it's written, it never needs to change unless the requirements of the system under test change.

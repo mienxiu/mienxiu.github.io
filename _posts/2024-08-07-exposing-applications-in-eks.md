@@ -51,15 +51,15 @@ With the 'Instance' target type, the load balancer forwards traffic to the worke
 
 ![Traffic flow of instance target-type](/assets/posts/28/traffic-flow-of-instance-target-type.png)
 
-This means that traffic from the load balancer is processed by the node’s networking stack, involving `iptables` rules or similar mechanisms, before being forwarded to the appropriate `Service` and pod.
+This means that traffic from the load balancer is processed by the node's networking stack, involving `iptables` rules or similar mechanisms, before being forwarded to the appropriate `Service` and pod.
 This additional processing can increase latency and add complexity to monitoring and troubleshooting, as the traffic is first handled by the node before reaching the intended pod.
 
 In contrast, with the 'IP' target type, the load balancer forwards traffic directly to the `Pod`.
 
 ![Traffic flow of ip target-type](/assets/posts/28/traffic-flow-of-ip-target-type.png)
 
-This approach bypasses the node’s additional networking layers, simplifying the network path, reducing latency, and making monitoring and troubleshooting more straightforward.
-It also allows for direct utilization of the load balancer’s health checks, accurately reflecting the pod’s status.
+This approach bypasses the node's additional networking layers, simplifying the network path, reducing latency, and making monitoring and troubleshooting more straightforward.
+It also allows for direct utilization of the load balancer's health checks, accurately reflecting the pod's status.
 Additionally, using 'IP' mode can reduce cross-AZ data transfer costs, unlike 'Instance' mode, where traffic is routed through Kubernetes NodePort and ClusterIPs.
 
 The recommended target type is 'IP' because direct routing avoids additional hops and overhead, providing a more efficient and straightforward traffic flow.
@@ -161,7 +161,7 @@ The following diagram shows an example of using LBC with `ip` target-type:
 A key advantage of the AWS Load Balancer Controller is its seamless integration with Kubernetes, which simplifies the management of NLBs and ALBs through Kubernetes annotations.
 Unlike the in-tree service controller, this controller supports advanced features such as path-based routing, host-based routing, and other capabilities provided by AWS.
 
-On ther other hand, while it may not be a significant drawback, it’s tightly integrated with AWS services, which can make it less portable.
+On ther other hand, while it may not be a significant drawback, it's tightly integrated with AWS services, which can make it less portable.
 This can be something to consider if you somehow need to move to another cloud provider or use a multi-cloud strategy.
 It may also introduce some degree of a learning curve, especially for users not familiar with AWS-specific configurations.
 
@@ -241,7 +241,7 @@ The following table is a summary of different controllers with their pros and co
 
 All in all, the AWS Load Balancer Controller is a go-to choice if you need a scalable and highly available solution with lower operational costs.
 If you prefer leveraging Nginx features and require more flexibility in the networking layer, the Ingress-Nginx Controller can be a good option.
-It’s worth noting that both AWS Load Balancer Controller and Ingress-Nginx Controller are battle-tested and reliable, so you can't go wrong with either choice.
+It's worth noting that both AWS Load Balancer Controller and Ingress-Nginx Controller are battle-tested and reliable, so you can't go wrong with either choice.
 
 Now let's go ahead and focus on the AWS Load Balancer Controller.
 
@@ -416,7 +416,7 @@ spec:
 
 ```
 
-Here’s a brief explanation on this manifest:
+Here's a brief explanation on this manifest:
 1. [`annotations`](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.8/guide/ingress/annotations/):
   - `alb.ingress.kubernetes.io/load-balancer-name`: Specifies the name of the load balancer as `ingress-demo0`.
   - `alb.ingress.kubernetes.io/scheme`: Sets the load balancer scheme to `internet-facing`, making it accessible from the internet.
@@ -772,7 +772,7 @@ echo3
 ```
 
 The priority of a listener can be modified using the `alb.ingress.kubernetes.io/group.order` annotation, which defaults to `0`.
-If you don’t explicitly specify the order, the rule order among Ingresses within the same `IngressGroup` is determined by the lexical order of the `Ingress`'s namespace/name.
+If you don't explicitly specify the order, the rule order among Ingresses within the same `IngressGroup` is determined by the lexical order of the `Ingress`'s namespace/name.
 
 When multiple Ingresses share the same load balancer via the `alb.ingress.kubernetes.io/group.name` annotation, deleting one of the Ingresses does not remove the load balancer.
 The load balancer is deleted only when all associated `Ingress` resources are deleted.
@@ -922,7 +922,7 @@ metadata:
 
 ```
 
-Since the access log files are stored in S3 buckets in compressed format, it’s not the most convenient for reading log files directly.
+Since the access log files are stored in S3 buckets in compressed format, it's not the most convenient for reading log files directly.
 You typically have to use analytical tools to analyze and process access logs.
 
 One strategy to analyze and process access logs is to use Amazon Athena.
