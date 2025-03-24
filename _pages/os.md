@@ -4,7 +4,7 @@ layout: tag
 permalink: /tags/os/
 taxonomy: os
 ---
-Took an OS class some years ago, forgot some of the content, decided to brush up on my CS knowledge and summarize what I learned.
+This series of posts is for those with no prior computer science knowledge who wish to learn about operating systems, as well as for those who have studied computer science and want to refresh their knowledge.
 
 ## Resources
 - [CS 6200: Introduction to Operating Systems by Georgia Tech OMSCS](https://omscs.gatech.edu/cs-6200-introduction-operating-systems)
