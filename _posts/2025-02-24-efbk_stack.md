@@ -698,6 +698,9 @@ For example, if certain products receive significantly more views, they might be
 
 These are just a few basic examples of how you can leverage Kibana for log analytics.
 Kibana offers many more powerful visualization and querying options.
+For example, you can create custom visualizations in the `Visualize` tab and then assemble them into a dashboard in the `Dashboard` tab:
+
+![Kibana Dashboard](/assets/posts/32/kibana_dashboard.png)
 
 ## Troubleshooting
 ### FLuent Bit is Running but New Logs are Not Being Indexed to Elasticsearch

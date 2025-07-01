@@ -444,12 +444,12 @@ The module uses Unicode code points to manipulate Korean characters.
 # For long lists, use `extend` in favor of readability
 
 # 19 initial consonants
-CHOSEONG = []
-CHOSEONG.extend(["ㄱ", "ㄲ", "ㄴ", "ㄷ"])
-CHOSEONG.extend(["ㄸ", "ㄹ", "ㅁ", "ㅂ"])
-CHOSEONG.extend(["ㅃ", "ㅅ", "ㅆ", "ㅇ"])
-CHOSEONG.extend(["ㅈ", "ㅉ", "ㅊ", "ㅋ"])
-CHOSEONG.extend(["ㅌ", "ㅍ", "ㅎ"])
+CHOSEONGS = []
+CHOSEONGS.extend(["ㄱ", "ㄲ", "ㄴ", "ㄷ"])
+CHOSEONGS.extend(["ㄸ", "ㄹ", "ㅁ", "ㅂ"])
+CHOSEONGS.extend(["ㅃ", "ㅅ", "ㅆ", "ㅇ"])
+CHOSEONGS.extend(["ㅈ", "ㅉ", "ㅊ", "ㅋ"])
+CHOSEONGS.extend(["ㅌ", "ㅍ", "ㅎ"])
 
 # 21 vowels
 JUNGSEONGS = []
@@ -485,7 +485,7 @@ def decompose_syllables(text: str) -> list[str]:
             choseong = offset // 588
             jungseong = (offset - (588 * choseong)) // 28
             jongseong = offset - (588 * choseong) - (28 * jungseong)
-            array.append([CHOSEONG[choseong], JUNGSEONGS[jungseong], JONGSEONGS[jongseong]])
+            array.append([CHOSEONGS[choseong], JUNGSEONGS[jungseong], JONGSEONGS[jongseong]])
         else:
             array.append([character])
 
@@ -541,7 +541,7 @@ For example:
 Once you have those three indices, you simply look up the corresponding jamo in the three lists:
 
 ```python
-CHOSEONG[choseong], JUNGSEONGS[jungseong], JONGSEONGS[jongseong]
+CHOSEONGS[choseong], JUNGSEONGS[jungseong], JONGSEONGS[jongseong]
 ```
 
 As a result, the `decompose_syllables` takes a string like `사과` and turns it into `["ㅅ", "ㅏ", "ㄱ", "ㅘ"]`.
@@ -663,8 +663,8 @@ def extract_choseongs(text: str) -> list[str]:
     for character in text.replace(" ", "").strip():
         if "가" <= character <= "힣":  # For Hangul syllables
             code = ord(character) - ord("가")
-            cho_idx = code // (21 * 28)
-            result.append(CHOSEONG[cho_idx])
+            choseong = code // (21 * 28)
+            result.append(CHOSEONGS[choseong])
         else:
             result.append(character)
 
@@ -750,6 +750,27 @@ Add this to `Hangul.py`:
 
 ...
 
+ENG_TO_KOR = {}
+# Consonants
+ENG_TO_KOR.update({"r": "ㄱ", "R": "ㄲ", "rt": "ㄳ", "s": "ㄴ"})
+ENG_TO_KOR.update({"sw": "ㄵ", "sg": "ㄶ", "e": "ㄷ", "E": "ㄸ"})
+ENG_TO_KOR.update({"f": "ㄹ", "fr": "ㄺ", "fa": "ㄻ", "fq": "ㄼ"})
+ENG_TO_KOR.update({"ft": "ㄽ", "fx": "ㄾ", "fv": "ㄿ", "fg": "ㅀ"})
+ENG_TO_KOR.update({"a": "ㅁ", "q": "ㅂ", "Q": "ㅃ", "qt": "ㅄ"})
+ENG_TO_KOR.update({"t": "ㅅ", "T": "ㅆ", "d": "ㅇ", "w": "ㅈ"})
+ENG_TO_KOR.update({"W": "ㅉ", "c": "ㅊ", "z": "ㅋ", "x": "ㅌ"})
+ENG_TO_KOR.update({"v": "ㅍ", "g": "ㅎ"})
+# Vowels
+ENG_TO_KOR.update({"k": "ㅏ", "o": "ㅐ", "i": "ㅑ", "O": "ㅒ"})
+ENG_TO_KOR.update({"j": "ㅓ", "p": "ㅔ", "u": "ㅕ", "P": "ㅖ"})
+ENG_TO_KOR.update({"h": "ㅗ", "hk": "ㅘ", "ho": "ㅙ", "hl": "ㅚ"})
+ENG_TO_KOR.update({"y": "ㅛ", "n": "ㅜ", "nj": "ㅝ", "np": "ㅞ"})
+ENG_TO_KOR.update({"nl": "ㅟ", "b": "ㅠ", "m": "ㅡ", "ml": "ㅢ"})
+ENG_TO_KOR.update({"l": "ㅣ"})
+
+# Create a reverse mapping from Korean to English
+KOR_TO_ENG = {v: k for k, v in ENG_TO_KOR.items()}
+
 def convert_jamo_to_latin(text: str) -> str:
     """
     Convert Hangul jamo (consonants and vowels) to a romanized form based on the standard Korean keyboard layout.
@@ -757,64 +778,11 @@ def convert_jamo_to_latin(text: str) -> str:
     Example:
         "사과" -> "tkrhk"
     """
-    kor_to_eng = {
-        "ㄱ": "r",
-        "ㄲ": "R",
-        "ㄳ": "rt",
-        "ㄴ": "s",
-        "ㄵ": "sw",
-        "ㄶ": "sg",
-        "ㄷ": "e",
-        "ㄸ": "E",
-        "ㄹ": "f",
-        "ㄺ": "fr",
-        "ㄻ": "fa",
-        "ㄼ": "fq",
-        "ㄽ": "ft",
-        "ㄾ": "fx",
-        "ㄿ": "fv",
-        "ㅀ": "fg",
-        "ㅁ": "a",
-        "ㅂ": "q",
-        "ㅃ": "Q",
-        "ㅄ": "qt",
-        "ㅅ": "t",
-        "ㅆ": "T",
-        "ㅇ": "d",
-        "ㅈ": "w",
-        "ㅉ": "W",
-        "ㅊ": "c",
-        "ㅋ": "z",
-        "ㅌ": "x",
-        "ㅍ": "v",
-        "ㅎ": "g",
-        "ㅏ": "k",
-        "ㅐ": "o",
-        "ㅑ": "i",
-        "ㅒ": "O",
-        "ㅓ": "j",
-        "ㅔ": "p",
-        "ㅕ": "u",
-        "ㅖ": "P",
-        "ㅗ": "h",
-        "ㅘ": "hk",
-        "ㅙ": "ho",
-        "ㅚ": "hl",
-        "ㅛ": "y",
-        "ㅜ": "n",
-        "ㅝ": "nj",
-        "ㅞ": "np",
-        "ㅟ": "nl",
-        "ㅠ": "b",
-        "ㅡ": "m",
-        "ㅢ": "ml",
-        "ㅣ": "l",
-    }
     jamos = decompose_syllables(text=text)
     result = []
     for jamo in jamos:
-        if jamo in kor_to_eng:
-            result.append(kor_to_eng[jamo])
+        if jamo in KOR_TO_ENG:
+            result.append(KOR_TO_ENG[jamo])
         else:
             result.append(jamo)
     return "".join(result)
@@ -822,8 +790,8 @@ def convert_jamo_to_latin(text: str) -> str:
 
 What this does:
 - Decompose Korean syllables into jamos.
-- Converts each jamo to its QWERTY key equivalent.
-- Joins the result back into a string.
+- Convert each jamo to its QWERTY key equivalent.
+- Join the result back into a string.
 
 For example:
 
