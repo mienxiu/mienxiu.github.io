@@ -1,6 +1,6 @@
 ---
 title: "Building Korean Query Auto-completion using Elasticsearch"
-tags: [elasticsearch, python]
+tags: [elasticsearch, ir, python]
 toc: true
 toc_sticky: true
 post_no: 36

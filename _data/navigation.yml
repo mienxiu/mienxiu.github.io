@@ -21,6 +21,8 @@ tags:
         url: /tags/docker/
       - title: "Elasticsearch"
         url: /tags/elasticsearch/
+      - title: "IR"
+        url: /tags/ir/
       - title: "Kafka"
         url: /tags/kafka/
       - title: "Kubernetes"
