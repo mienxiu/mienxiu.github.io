@@ -37,11 +37,11 @@ tags:
         url: /tags/python/
       - title: "Redis"
         url: /tags/redis/
-      - title: "Refactoring"
-        url: /tags/refactoring/
       - title: "Review"
         url: /tags/review/
       - title: "Serverless"
         url: /tags/serverless/
+      - title: "SWE"
+        url: /tags/swe/
       - title: "Testing"
         url: /tags/testing/

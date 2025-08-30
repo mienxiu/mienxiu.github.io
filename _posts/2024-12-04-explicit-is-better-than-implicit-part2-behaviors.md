@@ -1,6 +1,6 @@
 ---
 title: "Explicit is Better than Implicit - Part 2: Behaviors"
-tags: [python, refactoring, testing]
+tags: [python, swe, testing]
 toc: true
 toc_sticky: true
 post_no: 31

@@ -1,6 +1,6 @@
 ---
 title: Configuring GitOps with GitHub Actions and Argo CD
-tags: [cicd, kubernetes]
+tags: [cicd, kubernetes, swe]
 toc: true
 toc_sticky: true
 post_no: 18

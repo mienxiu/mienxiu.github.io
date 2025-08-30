@@ -1,6 +1,6 @@
 ---
 title: "Code Coverage: Misusage and Proper Usage"
-tags: [python, testing]
+tags: [python, swe, testing]
 toc: true
 toc_sticky: true
 post_no: 29

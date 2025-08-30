@@ -1,6 +1,6 @@
 ---
 title: Explaining the One-Version Rule and Monorepos in the context of Microservices
-tags: [microservices]
+tags: [microservices, swe]
 toc: true
 toc_sticky: true
 post_no: 21

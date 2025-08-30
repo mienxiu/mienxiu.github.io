@@ -1,6 +1,6 @@
 ---
 title: Property Based Testing with Hypothesis
-tags: [python, testing]
+tags: [python, swe, testing]
 toc: true
 toc_sticky: true
 post_no: 20

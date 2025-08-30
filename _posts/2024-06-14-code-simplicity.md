@@ -1,6 +1,6 @@
 ---
 title: "Book Review: Code Simplicity by Max Kanat-Alexander"
-tags: [review]
+tags: [review, swe]
 toc: true
 toc_sticky: true
 post_no: 26

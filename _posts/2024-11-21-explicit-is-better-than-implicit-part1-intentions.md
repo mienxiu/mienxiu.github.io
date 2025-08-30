@@ -1,6 +1,6 @@
 ---
 title: "Explicit is Better than Implicit - Part 1: Intentions"
-tags: [python, refactoring]
+tags: [python, swe]
 toc: true
 toc_sticky: true
 post_no: 30

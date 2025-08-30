@@ -1,6 +1,6 @@
 ---
 title: Memory Profiling CPython Applications with Memray
-tags: [python, testing]
+tags: [python, swe, testing]
 toc: true
 toc_sticky: true
 post_no: 22

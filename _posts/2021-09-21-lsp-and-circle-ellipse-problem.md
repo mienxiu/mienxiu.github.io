@@ -1,6 +1,6 @@
 ---
 title: Liskov Substitution Principle and Circle-ellipse Problem
-tags: [python, refactoring]
+tags: [python, swe]
 toc: true
 toc_sticky: true
 post_no: 6
