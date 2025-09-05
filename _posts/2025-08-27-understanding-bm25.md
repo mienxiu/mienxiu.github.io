@@ -8,11 +8,21 @@ post_no: 37
 When you type a query into a search engine, it finds documents that contain your keywords.
 The problem is: **how do you order those documents from most to least relevant**?
 
+<script>
+  MathJax = {
+    output: {
+      displayOverflow: 'scroll'
+    },
+    tex: {
+      inlineMath: {'[+]': [['$', '$']]}
+    }
+  };
+</script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
 
 Search engines use a ranking function to score document relevance.
-We write it as \\(f(q,d)\\), where \\(q\\) is the query and \\(d\\) is a document.
-The higher the \\(f(q,d)\\), the higher the document appears in the search results.
+We write it as $f(q,d)$, where $q$ is the query and $d$ is a document.
+The higher the $f(q,d)$, the higher the document appears in the search results.
 
 Although various methods exist to estimate document relevance, BM25 (Best Matching 25) is widely regarded as the most practical and effective ranking function for this task.
 It's been around since the 90s, and despite newer ranking models, BM25 is still a strong baseline and often tough to beat in real-world applications.
@@ -37,18 +47,18 @@ A TF-only ranking function's formula can be represented as this:
 $$f(q,d) = \sum_{i=1}^{n}TF(t_i,d)$$
 
 Where:
-- \\(f(q,d)\\) is the relevance score of document \\(d\\) for query \\(q\\).
-- \\(\sum_{i=1}^{n}\\) is the summation over all terms (\\(t_1\\), \\(t_2\\), ..., \\(t_n\\)) in the query \\(q\\).
-- \\(TF(t_i,d)\\) is the frequency score of query term \\(t_i\\) in \\(d\\).
+- $f(q,d)$ is the relevance score of document $d$ for query $q$.
+- $\sum_{i=1}^{n}$ is the summation over all terms ($t_1$, $t_2$, ..., $t_n$) in the query $q$.
+- $TF(t_i,d)$ is the frequency score of query term $t_i$ in $d$.
 
-Then how do we define \\(TF()\\)?
+Then how do we define $TF()$?
 
-A naive TF is just to apply a linear count; \\(y=x\\).
+A naive TF is just to apply a linear count; $y=x$.
 Therefore:
 
 $$TF(t,d) = c(t,d)$$
 
-Where \\(c(t,d)\\) is the raw count of term `t` in document `d`.
+Where $c(t,d)$ is the raw count of term `t` in document `d`.
 
 ![Linear TF](/assets/posts/37/linear_tf.png)
 
@@ -59,11 +69,11 @@ Suppose we have two documents in our collection:
 
 Query: "korea interest rate"
 
-Note that this query contains three terms: {\\(t_1\\), \\(t_2\\), \\(t_3\\)} = {"Korea", "interest", "rate"}
+Note that this query contains three terms: {$t_1$, $t_2$, $t_3$} = {"Korea", "interest", "rate"}
 
 Under this linear application of the raw count, the scores are:
 
-|documents|\\(f(q,d)\\)|
+|documents|$f(q,d)$|
 |-|-|
 |d1|3|
 |d2|2|
@@ -80,7 +90,7 @@ Suppose we add one more document to the collection:
 
 With this new collection, the scores are:
 
-|documents|\\(f(q,d)\\)|
+|documents|$f(q,d)$|
 |-|-|
 |d1|3|
 |d2|2|
@@ -92,12 +102,12 @@ In other words, diminishing returns from repetition.
 
 ### TF Transformation
 
-One simple fix is to apply a sublinear transform like logarithmic transformation; \\(y=\log(x+1)\\).
+One simple fix is to apply a sublinear transform like logarithmic transformation; $y=\log(x+1)$.
 Therefore:
 
 $$TF(t,d) = \log(c(t,d)+1)$$
 
-(1 is added to avoid \\(\log(0)\\).)
+(1 is added to avoid $\log(0)$.)
 
 This way, the impact of each extra occurrence shrinks.
 
@@ -106,20 +116,20 @@ This way, the impact of each extra occurrence shrinks.
 Still, it's not perfect - TF is unbounded, meaning there's no upper limit.
 A spammy document can still rack up arbitrarily high scores if it repeats a term enough times.
 
-To improve it more, here comes a bounded transformation; \\(y=\frac{x(k+1)}{x+k}\\).
+To improve it more, here comes a bounded transformation; $y=\frac{x(k+1)}{x+k}$.
 Therefore:
 
 $$TF(t,d) = \frac{c(t,d)(k+1)}{c(t,d)+k}$$
 
-This function saturates at \\((k+1)\\), no matter how large \\(x\\) gets.
-In other words, the function is upper-bounded by \\(k+1\\).
+This function saturates at $(k+1)$, no matter how large $x$ gets.
+In other words, the function is upper-bounded by $k+1$.
 
 ![Bounded TF](/assets/posts/37/bounded_tf.png)
 
-Not only is this transformation capped at \\((k+1)\\)—which stops a single term's frequency from completely dominating the score—it's also flexible.
-The parameter \\(k\\) controls how quickly the curve saturates:
-- If \\(k=0\\), it reduces to a simple binary scheme: any occurrence of the term contributes a score of 1, no matter how many times it appears.
-- If \\(k\\) is very large, the function behaves almost linearly, getting closer to the linear term frequency.
+Not only is this transformation capped at $(k+1)$—which stops a single term's frequency from completely dominating the score—it's also flexible.
+The parameter $k$ controls how quickly the curve saturates:
+- If $k=0$, it reduces to a simple binary scheme: any occurrence of the term contributes a score of 1, no matter how many times it appears.
+- If $k$ is very large, the function behaves almost linearly, getting closer to the linear term frequency.
 
 With this, our TF-based ranking function becomes:
 
@@ -167,13 +177,13 @@ Output:
 
 The scores for different `k` values are shown below:
 
-|documents|\\(f(q,d)\\) (\\(k\\)=1.2)|\\(f(q,d)\\) (\\(k\\)=1.6)|\\(f(q,d)\\) (\\(k\\)=2)|
+|documents|$f(q,d)$ ($k$=1.2)|$f(q,d)$ ($k$=1.6)|$f(q,d)$ ($k$=2)|
 |-|-|-|-|
 |d1|3|3|3|
 |d2|2|2|2|
 |d3|2.75|2.89|3|
 
-This illustrates the role of \\(k\\): a smaller \\(k\\) dampens the impact of raw term frequency, while a larger \\(k\\) makes the function behave closer to linear counting.
+This illustrates the role of $k$: a smaller $k$ dampens the impact of raw term frequency, while a larger $k$ makes the function behave closer to linear counting.
 
 The key takeaway here is that with this transformation, `d3` no longer unfairly outranks `d1` just because it happens to repeat the query terms.
 
@@ -186,7 +196,7 @@ As an example, consider one more document that contains three "interest rate"s:
 
 Using our TF-only ranking function for the same query "korea interest rate", repetition wins out:
 
-|documents|\\(f(q,d)\\) (\\(k\\)=1.2)|
+|documents|$f(q,d)$ ($k$=1.2)|
 |-|-|
 |d1|3|
 |d2|2|
@@ -211,15 +221,15 @@ When we combine TF with IDF, we get the TF–IDF ranking function:
 
 $$f(q,d) = \sum_{i=1}^{n}TF(t_i,d)IDF(t_i)$$
 
-Then how do we define \\(IDF()\\)?
+Then how do we define $IDF()$?
 
 The standard notation of IDF is this:
 
 $$IDF(t) = \log\frac{N}{df(t)}$$
 
 Where:
-- \\(N\\) is the total number of documents in the collection. (cardinality of documents)
-- \\(df(t)\\) is the number of documents containing the term \\(t\\). (\\(df\\) stands for document frequency.)
+- $N$ is the total number of documents in the collection. (cardinality of documents)
+- $df(t)$ is the number of documents containing the term $t$. ($df$ stands for document frequency.)
 
 In words, a word with a low document frequency (a rare word) will have a high IDF score, while a very common word will have a low IDF score.
 
@@ -238,8 +248,8 @@ This is also what [scikit-learn](https://scikit-learn.org/stable/modules/generat
 
 Here's why the formula has all those extra `+1`s:
 
-- `+1` in the denominator: Without it, if a term never appears in the collection (\\(df(t) = 0\\)), you'd end up dividing by zero. The `+1` smooths this out so the math always works. You can think of it as "Even if the term is unseen, let's pretend it appeared at least once."
-- `+1` in the numerator: If a term shows up in every document (\\(df(t) = N\\)), then \\(\log\frac{N}{N} = \log(1) = 0\\). That would make the term's weight vanish completely. By adding 1 to the numerator, those super-common terms still get a tiny but non-zero weight.
+- `+1` in the denominator: Without it, if a term never appears in the collection ($df(t) = 0$), you'd end up dividing by zero. The `+1` smooths this out so the math always works. You can think of it as "Even if the term is unseen, let's pretend it appeared at least once."
+- `+1` in the numerator: If a term shows up in every document ($df(t) = N$), then $\log\frac{N}{N} = \log(1) = 0$. That would make the term's weight vanish completely. By adding 1 to the numerator, those super-common terms still get a tiny but non-zero weight.
 - `+1` outside the log: Even with smoothing inside the fraction, the log value can hover around zero or dip negative when terms are extremely common. Negative IDF values don't make sense—TF-IDF weights should never imply "anti-importance." Adding 1 outside guarantees that IDF stays positive, avoiding zeros or negatives.
 
 Graphically:
@@ -306,7 +316,7 @@ Let's revisit the query "korea interest rate" and four documents:
 
 Using TF-IDF ranking function, the scores are:
 
-|documents|\\(f(q,d)\\) (\\(k\\)=1.2)|
+|documents|$f(q,d)$ ($k$=1.2)|
 |-|-|
 |d1|**3.92**|
 |d2|2|
@@ -327,7 +337,7 @@ Notice how `d5` is stuffed with the words Korea and interest rate.
 TF-IDF would likely push this document to the very top, not because it's the most relevant, but simply because it's long and keeps repeating the keywords.
 The scores are:
 
-|documents|\\(f(q,d)\\) (\\(k\\)=1.2)|
+|documents|$f(q,d)$ ($k$=1.2)|
 |-|-|
 |d1|3.69|
 |d2|2|
@@ -363,11 +373,11 @@ The formula for the pivoted normalizer is:
 $$normalizer = 1 - b + b \frac{|d|}{avdl}$$
 
 Where:
-- \\(\|d\|\\) is the length of the document (number of terms).
-- \\(avdl\\) is the average document length across the whole collection.
-- \\(b\\) is a tuning parameter between 0 and 1.
-    - If \\(b\\) = 0, the normalizer is always 1, and no length normalization occurs.
-    - As \\(b\\) increases towards 1, the penalty for long documents and the reward for short documents become more aggressive.
+- $\|d\|$ is the length of the document (number of terms).
+- $avdl$ is the average document length across the whole collection.
+- $b$ is a tuning parameter between 0 and 1.
+    - If $b$ = 0, the normalizer is always 1, and no length normalization occurs.
+    - As $b$ increases towards 1, the penalty for long documents and the reward for short documents become more aggressive.
 
 ![Pivoted Length Normalization](/assets/posts/37/pivoted_length_normalization.png)
 
@@ -453,7 +463,7 @@ def bm25_ranking_function(
 
 Using the BM25 ranking function, the scores for our example become more acceptable:
 
-|documents|\\(f(q,d)\\) (\\(k\\)=1.2, \\(b\\)=0.75)|
+|documents|$f(q,d)$ ($k$=1.2, $b$=0.75)|
 |-|-|
 |d1|4.46|
 |d2|2.63|
