@@ -7,7 +7,7 @@ post_no: 23
 ---
 Amazon EKS (Elastic Kubernetes Service) is a fully managed Kubernetes service that simplifies building, securing, operating, and maintaining Kubernetes clusters on AWS.
 
-This post serves as a step-by-step tutorial on provisioning an [Amazon EKS cluster]((https://docs.aws.amazon.com/eks/)) within a custom Amazon VPC, utilizing AWS CDK, specifically using L2 constructs.
+This post serves as a step-by-step tutorial on provisioning an [Amazon EKS cluster](https://docs.aws.amazon.com/eks/) within a custom Amazon VPC, utilizing AWS CDK, specifically using L2 constructs.
 
 Previously, I posted [a tutorial](/creating-vpc-with-aws-cdk/) on creating and configuring an Amazon VPC by using AWS CDK.
 All the examples in that post are based on L1 constructs to illustrate how they represent AWS CloudFormation.

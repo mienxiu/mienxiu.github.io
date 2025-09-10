@@ -28,7 +28,7 @@ Message passing is useful for exchanging small amounts of data because it avoids
 However, shared memory can be faster since message passing relies on system calls, which require more time due to kernel involvement.
 
 While shared memory can be faster because it bypasses system calls and kernel intervention, recent research on multi-core systems suggests that message passing often outperforms shared memory in such environments.
-{: notice-info}
+{: notice--info}
 
 ## Message-Passing Systems
 In message-passing systems, processes create messages and then send or receive these messages through a communication channel.

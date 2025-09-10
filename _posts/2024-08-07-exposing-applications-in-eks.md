@@ -1,6 +1,6 @@
 ---
 title: Exposing Applications Running in EKS Cluster for External Access
-tags: [aws, kubernetes, python]
+tags: [aws, kubernetes, networking, python]
 toc: true
 toc_sticky: true
 post_no: 28
