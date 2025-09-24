@@ -271,7 +271,7 @@ For example, here's how to retrieve search logs from the past week:
 ```json
 {
     "size": 0,
-    "query": {"bool": {"must": [{"range": {"@timestamp": {"gte": "now-7d"}}}]}},
+    "query": {"bool": {"filter": [{"range": {"@timestamp": {"gte": "now-7d"}}}]}},
     ...
 }
 ```

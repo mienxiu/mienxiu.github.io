@@ -698,6 +698,36 @@ For example, the `aggregations` part of the response can be transformed into a s
 
 The following Python code will help transform the response into a format like the example above:
 ```python
+from elasticsearch import Elasticsearch
+
+elasticsearch = Elasticsearch(ES_HOST)
+
+body = {
+    "size": 0,
+    "aggs": {
+        "facets": {
+            "nested": {"path": "facets"},
+            "aggs": {
+                "codes": {
+                    "terms": {"field": "facets.code"},
+                    "aggs": {
+                        "names": {"terms": {"field": "facets.name"}},
+                        "values": {
+                            "nested": {"path": "facets.values"},
+                            "aggs": {
+                                "codes": {
+                                    "terms": {"field": "facets.values.code"},
+                                    "aggs": {"names": {"terms": {"field": "facets.values.name"}}},
+                                }
+                            },
+                        },
+                    },
+                }
+            },
+        }
+    },
+}
+
 response = elasticsearch.search(index="products", body=query)
 
 facet_distribution = []
@@ -983,6 +1013,11 @@ The response JSON will contain three documents with black or 512GB in their face
 | 4   | Phone 4  | (Black, Blue), (256GB, 512GB) |
 | 1   | Phone 1  | (Black), (128GB)              |
 | 3   | Phone 3  | (Black, Red), (128GB, 256GB)  |
+
+Notice that Phone 4 appears at the top of the results as it matches both conditions (black and 512GB), whereas the other phones match only one.
+This is because we used the `must` clause instead of `filter`.
+While both `must` and `filter` restrict results to documents matching all specified queries, `must` also considers scoring when ranking results.
+In contrast, `filter` ignores scoring altogether.
 
 ### Conjunctive facets + disjunctive facets
 You can also combine conjunctive facets and disjunctive facets.

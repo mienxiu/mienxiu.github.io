@@ -392,6 +392,10 @@ Finally, we arrive at the BM25 (Okapi) ranking function by integrating all three
 
 $$f(q,d) = \sum_{i=1}^{n}\frac{c(t_i,d)(k+1)}{c(t_i,d)+k(1-b+b\frac{|d|}{avdl})}(\log\frac{N+1}{df(t)+1}+1)$$
 
+Where:
+- $k$ is the term frequency saturation parameter
+- $b$ is the document-length normalization weight (0–1)
+
 In Python:
 ```python
 import math
