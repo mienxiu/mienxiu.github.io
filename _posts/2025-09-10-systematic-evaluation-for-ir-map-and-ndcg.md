@@ -60,8 +60,8 @@ These concepts can be illustrated using a confusion matrix:
 |Not Relevant|False Positive|True Negative |
 
 From this matrix, precision and recall are defined as follows:
-- $Precision = \frac{\text{Number of relevant documents retrieved}}{\text{Total number of documents retrieved}}$ = $\frac{TP}{TP + FP}$
-- $Recall = \frac{\text{Number of relevant documents retrieved}}{\text{Total number of relevant documents in the collection}}$ = $\frac{TP}{TP + FN}$
+- $Precision = \frac{TP}{TP + FP} = \frac{\text{Number of relevant retrieved}}{\text{Total number of retrieved}}$
+- $Recall = \frac{TP}{TP + FN} = \frac{\text{Number of relevant retrieved}}{\text{Total number of relevant}}$
 
 Here's an example.
 
