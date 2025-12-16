@@ -677,6 +677,11 @@ ndcg = evaluate(qrels, run, metrics="ndcg@5")
 print(f"{ndcg:.2f}")
 ```
 
+Output:
+```
+0.95
+```
+
 ### Limitation
 
 When comparing two systems, looking only at the average nDCG score (or any single metric) isn't enough.
