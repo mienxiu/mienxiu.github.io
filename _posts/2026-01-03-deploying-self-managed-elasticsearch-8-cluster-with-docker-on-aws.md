@@ -262,7 +262,7 @@ Your IP addresses will differ depending on your VPC and subnet configuration.
     - [`--ulimit nofile=65535:65535`](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-prod#_increase_ulimits_for_nofile_and_nproc): to increase the file descriptor limit required for production workloads.
     - `--publish-all`: to randomize published ports, which is [recommended for production clusters](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-prod#_randomize_published_ports).
     - `--network host`: to [optimize performance](https://docs.docker.com/engine/network/drivers/host/). The `host` network only works on Linux hosts and `--publish-all` option is ignored when it is enabled.
-    - `--volume $HOME/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml`: to bind-mount custom `elasticsearch.yml`, [the preferred approach for production setups](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-configure).
+    - `--volume $HOME/...`: to bind-mount custom `elasticsearch.yml`, [the preferred approach for production setups](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-configure).
     - [`--env "bootstrap.memory_lock=true" --ulimit memlock=-1:-1`](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-prod#_disable_swapping): to disable swapping for performance and node stability.
     - `--env TZ=Asia/Seoul`: Sets the container timezone (adjust as needed).
     - `ELASTIC_PASSWORD`: Replace it with a password for your production Elasticsearch cluster.
@@ -640,11 +640,10 @@ Next, we'll deploy a single-node monitoring cluster and use Elastic Agent to mon
     elasticsearch.hosts: ["http://localhost:9200"]
     elasticsearch.username: "kibana_system"
     elasticsearch.password: "kibanapassword"
-    xpack.encryptedSavedObjects.encryptionKey: "d7x9s2k5v8y4b3m6n1q0w7e2r5t8y9u1"
+    xpack.encryptedSavedObjects.encryptionKey: "d7x9s2k5v8y4b3m6n1q0w7e2r5t8y9u1" # Replace this with your own key. You can generate one using `./kibana-encryption-keys generate`.
     server.name: kibana
     ```
     - `elasticsearch.hosts`: Use `http://localhost:9200` since Elasticsearch is running on the same machine.
-    - `xpack.encryptedSavedObjects.encryptionKey`: Replace this with your own key. You can generate one using `./kibana-encryption-keys generate`.
 3. Run Kibana container:
     ```sh
     sudo docker run -d \
