@@ -159,7 +159,7 @@ Your IP addresses will differ depending on your VPC and subnet configuration.
     ```sh
     ssh my-elasticsearch-node-master-1
     ```
-2. Install Docker [7](https://docs.docker.com/engine/install/ubuntu/):
+2. Install [Docker](https://docs.docker.com/engine/install/ubuntu/):
     ```sh
     sudo apt-get update
     sudo apt-get install -y ca-certificates curl
