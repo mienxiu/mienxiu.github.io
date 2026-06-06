@@ -140,7 +140,7 @@ We can build a topic language model $P_{topic}$ from documents containing that t
 |vitamin   |0.005          |
 |nutrition |0.004          |
 
-Here, common terms like "the", "ia", and "a" dominate the distribution, but they are not informative.
+Here, common terms like "the", "is", and "a" dominate the distribution, but they are not informative.
 To discount such common terms, we can compare the topic model against a background model constructed from a broad corpus:
 
 |$t$       |$P_{background}(t)$ |
