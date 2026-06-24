@@ -818,6 +818,39 @@ Before running them, make sure you update these values to match your environment
 - `ELASTIC_PASSWORD`
 - `ca.crt` and `ca.key` files (refer to `REPLACE IT` in the `join_cluster.sh` file)
 
+## Zone Awareness
+
+To improve resilience against infrastructure failures, it is highly recommended to deploy an Elasticsearch cluster across multiple availability zones.
+However, simply placing nodes in multiple availability zones does not automatically make the cluster resilient.
+The cluster operator must ensure that shards are distributed across zones so that, even if one or more zones fail, the remaining shard copies are still available.
+
+Elasticsearch provides a convenient way to achieve this through [shard allocation awareness](https://www.elastic.co/guide/en/elasticsearch/reference/8.19/shard-allocation-awareness.html#forced-awareness).
+The configuration is simple:
+1. Add a custom node attribute to each node’s `elasticsearch.yml` file:
+    ```yaml
+    node.attr.zone: ap-northeast-2a # For nodes in ap-northeast-2a
+    ```
+    or
+    ```yaml
+    node.attr.zone: ap-northeast-2b # For nodes in ap-northeast-2b
+    ```
+2. Tell Elasticsearch to allocate shards based on that awareness attribute by setting `cluster.routing.allocation.awareness.attributes` through the cluster update settings API:
+    ```json
+    PUT /_cluster/settings
+    {
+        "persistent": {
+            "cluster.routing.allocation.awareness.attributes": "zone"
+        }
+    }
+    ```
+
+    Once setting is enabled, Elasticsearch starts relocating shards from nodes without the specified awareness attribute to nodes that have it.
+    So, make sure all nodes have already joined the cluster with the appropriate custom attribute before enabling this setting.
+    {: .notice--warning}
+
+Note that for a cluster with three master-eligible nodes, each node should be placed in a different availability zone.
+If only two availability zones are used, quorum may be lost when the zone containing two master-eligible nodes fails.
+
 ## Conclusion
 
 Running a self-managed cluster means you own everything.
