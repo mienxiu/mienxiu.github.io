@@ -436,7 +436,7 @@ Just like JM smoothing, this method naturally gives tf-idf weighting and documen
 Specifically:
 - $tf_{t,q}$ -> TF weighting
 - $\frac{1}{P(t \mid M_c)}$ -> IDF weighting
-- $|q| \log\frac{\alpha}{L_d+\alpha}$ -> document length normalization
+- $\vert q \vert \log\frac{\alpha}{L_d+\alpha}$ -> document length normalization
 
 A key difference from JM smoothing is that the effective weight ($\alpha_d$) becomes $\frac{\alpha}{L_d+\alpha}$ instead of the fixed linear coefficient $\lambda$.
 This means the model automatically smooths short documents more and long documents less, which makes the interpolation adaptive rather than fixed.
