@@ -542,7 +542,7 @@ Updating a custom `elasticsearch.yml` in a Docker-based setup is straightforward
 1. Make your changes in `elasticsearch.yml` in your home directory.
 2. Restart the container:
     ```sh
-    docker restart elasticsearch.yml
+    docker restart elasticsearch
     ```
 
 Be aware that restarting the container will cause downtime.
