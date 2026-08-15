@@ -111,7 +111,7 @@ Where:
 - $\beta$: the related documents weight
 - $\gamma$: the nonrelated documents weight
 - $\frac{1}{\vert D_r \vert}\sum_{\vec{d}_j \in D_r}\vec{d}_j$: the centroid (vector) of positive examples
-- $\frac{1}{\vert D_{nr} \vert}\sum_{\vec{d}_j \in D_{nr}}\vec{d}_j$: the centroid (vector) of negative examples
+- $$\frac{1}{\vert D_{nr} \vert}\sum_{\vec{d}_j \in D_{nr}}\vec{d}_j$$: the centroid (vector) of negative examples
 
 As the formula shows, three parameters ($\alpha$, $\beta$, $\gamma$) control how much weight we give to the original query, the relevant documents, and the nonrelevant documents.
 For example, if we have enough judged documents to trust the feedback, we may want to use higher values for $\beta$ and $\gamma$.
