@@ -15,7 +15,7 @@ An example of a 3x3 Latin square would look like the following table:
 |3|1|2|
 |2|3|1|
 
-In this post, I will illustrate the key concepts of constraint satisfaction problems (CSPs) and backtracking search, two fundamental techniques in AI, by applying them to solve Latin squares.
+In this post, I will illustrate the key concepts of constraint satisfaction problems and backtracking search, two fundamental techniques in AI, by applying them to solve Latin squares.
 
 ## Constraint Satisfaction
 
