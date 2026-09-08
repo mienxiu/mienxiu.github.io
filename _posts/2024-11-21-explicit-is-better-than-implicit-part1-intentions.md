@@ -5,6 +5,7 @@ toc: true
 toc_sticky: true
 post_no: 30
 ---
+
 "Explicit is better than implicit" is one of my favorite lines from [the Zen of Python](https://peps.python.org/pep-0020/).
 In essence, this guiding principle encourages clarity in code by favoring straightforward and easily comprehensible designs over ones that are hidden or implied.
 
@@ -17,6 +18,7 @@ In [*Part 2: Behaviors*](/explicit-is-better-than-implicit-part2-behaviors), we'
 I will also focus on balancing implicit behavior with explicit clarity.
 
 ## Names
+
 Naming in programming plays a fundamental role in making intentions clear.
 Well-chosen names can make the intent and purpose of the code immediately understandable, reducing the cognitive load on developers.
 Poor naming, on the other hand, can lead to confusion, errors, and increased time spent debugging or onboarding new team members.
@@ -70,6 +72,7 @@ Even someone unfamiliar with the code can understand what it does at a glance.
 What's more valuable of this improvement is that **it eliminates the risk of guesswork for readers**.
 
 ### Abbreviations
+
 Let's take another example that illustrates a different type of potential risk caused by the use of implicit names.
 
 Consider this code snippet:
@@ -138,6 +141,7 @@ These terms are widely recognized and also improve readability.
 The principles we've discussed so far also apply to class names.
 
 ### Generic Terms
+
 Naming classes with overly generic terms like `Service` or `Manager` can also be problematic.
 It is often considered an anti-pattern for two main reasons:
 - They don't provide enough information about what the class specifically does, making it harder for developers to understand its purpose at a glance.
@@ -155,6 +159,7 @@ For a deeper understanding about SRP, you may refer to [this post](/srp).
 {: .notice--info}
 
 ### Tests
+
 Naming test cases is an often-overlooked but critical aspect of writing maintainable and effective tests.
 
 Consider the following example, where test cases are designed to validate a flight service:
@@ -199,6 +204,7 @@ FAILED test.py::test_cancel_flight - ...
 ```
 
 ## Parameters
+
 Often, some functions demand complex objects as inputs when all they truly need are a few specific attributes or values.
 This forces clients to provide overly detailed inputs, potentially leading to unnecessary coupling and bloated test setups.
 
@@ -256,6 +262,7 @@ Additionally, explicit parameters help make the function's intent clearer.
 Anyone reading the code knows exactly what inputs are required, without having to dig into the `Product` class definition.
 
 ## Magic Numbers
+
 In programming, magic numbers refer to numerical or text values with unexplained meaning or multiple occurrences.
 
 Let's explore an example that illustrates the risks of magic numbers.
@@ -324,6 +331,7 @@ elif month == MARCH:
 While technically correct, this approach possibly degrade the overall readability of the codebase.
 
 ## Exceptions
+
 Using overly generic exceptions for error handling can be problematic, as they hide the underlying cause of the issues for both developers and users.
 
 Take this example:
@@ -352,7 +360,56 @@ except ConnectionError as error:
 ```
 With this approach, you make it easier to debug and provide a much better experience for users.
 
+## Semantic Overloading
+
+Semantic overloading happens when a single attribute or property has more than one meaning or intention.
+
+Commonly, it happens as follows:
+
+1. An attribute starts with its own clear intention. For example, `user.is_deleted` indicates whether a user has been deleted. If it is true, the user can no longer use the service.
+    ```python
+    class User:
+        is_deleted: bool
+    ```
+2. Later, a new requirement is given. Users can be banned from the service, but administrators may unban them at any time.
+3. A developer notices that deleted users can't use the service. To avoid adding another attribute, the developer reuses `is_deleted`. Whenever a user is banned, `is_deleted` is set to true.
+    ```python
+    def ban_user(user: User):
+        user.is_deleted = True
+    ```
+
+At this point, `is_deleted` acts as a proxy attribute to indicate whether the user has been banned, in addition to its original intention.
+But this new intention is implicit.
+Nothing in the attribute's name reveals that it also represents a ban.
+
+Such implicit intention can result in unexpected disaster.
+Imagine a new privacy requirement that the personal information of deleted users must be removed.
+A developer may not know that `is_deleted` is also used for banned users.
+They might naively write code that removes personal information of users based on their `is_deleted` values, like:
+```python
+if user.is_deleted:
+    remove_personal_information(user)
+```
+
+Since banned users also have `is_deleted` set to true, the process would remove their personal information too.
+Later, an administrator unbans one of those users, but the user can't normally use the service as they lack the information required to use the service.
+
+The more explicit model would be:
+
+```python
+class User:
+    is_deleted: bool
+    is_banned: bool
+```
+
+This makes the intention more explicit.
+Code that removes personal information can check `is_deleted`.
+Code that restricts banned users can check `is_banned`.
+Neither behavior depends on developers knowing, remembering, or documenting a hidden relationship between two different concepts.
+At the cost of an additional attribute and a little more code, an implicit rule is removed from the system.
+
 ## Comments
+
 Encouraging explicit intentions applies not only to code but also to comments.
 Comments are particularly useful for explaining what isn't immediately obvious from the code.
 However, vague or unclear comments don't offer much help to readers, often leaving them guessing about the code's purpose or functionality.
@@ -396,6 +453,7 @@ Meanwhile, redundant comments can degrade the overall readability.
 It's essential to strike a balance—write comments that add value by explaining why a piece of code exists or operates in a certain way, rather than stating the obvious.
 
 ## Conclusion
+
 When intentions are not clear, it forces other developers and even the original author to spend extra time understanding, maintaining, or modifying the code.
 Worse yet, it can lead developers to do guesswork, potentially introducing unintended bugs.
 When intentions are explicit, on the other hand, it becomes easier for developers to understand the purpose behind the code and helps prevent unexpected errors.
