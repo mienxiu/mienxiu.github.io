@@ -5,6 +5,7 @@ toc: true
 toc_sticky: true
 post_no: 31
 ---
+
 "Explicit is better than implicit" is one of my favorite lines from [the Zen of Python](https://peps.python.org/pep-0020/).
 In essence, this guiding principle encourages clarity in code by favoring straightforward and easily comprehensible designs over ones that are hidden or implied.
 
@@ -17,6 +18,7 @@ In [*Part 2: Behaviors*](/explicit-is-better-than-implicit-part2-behaviors), we'
 I will also focus on balancing implicit behavior with explicit clarity.
 
 ## Aspect-Oriented Programming
+
 Aspect-Oriented Programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of *cross-cutting concerns*.
 Cross-cutting concerns are aspects of a program that affect multiple components, such as logging or security.
 AOP achieves this by adding additional behavior (called *advice*) to existing code (called *join points*) without modifying the code itself, thereby promoting separation of concerns.
@@ -27,6 +29,7 @@ While AOP offers ways to modularize concerns that span multiple parts of an appl
 Python doesn't have native AOP support like some other languages (e.g., AspectJ for Java), but we can facilitate AOP-like behavior using decorators and other [metaprogramming](https://en.wikipedia.org/wiki/Metaprogramming) techniques.
 
 ### Python Decorators
+
 Python decorators are a language feature.
 It should not be confused with the decorator pattern from design patterns.
 {: .notice--info}
@@ -120,41 +123,52 @@ In my opinion, such selective modifications are generally only justifiable in sp
 
 Then, what about the overuse of decorators?
 
-One of the main advantages of decorators is that they help solve the DRY (Don't Repeat Yourself) problem.
-However, let's consider a scenario where reusability isn't a concern, and you create a decorator specifically for a single function.
-Here's an example:
+One main advantage of decorators is that they help solve the DRY (Don't Repeat Yourself) problem.
+However, if a decorator is used for only one function, it just adds complexity without providing meaningful reuse.
+Consider deleting a user account:
 ```python
 from functools import wraps
 
-def authenticate(func):
+def require_admin(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        user = kwargs.get('user')
-        if not user or not user.is_authenticated:
-            raise PermissionError("User is not authenticated")
+        actor = kwargs.get("actor")
+
+        if actor is None or not actor.is_admin:
+            raise PermissionError("Administrator access is required")
+
         return func(*args, **kwargs)
+
     return wrapper
 
-@authenticate
-def fetch_user_data(user: User) -> dict[str, str]:
-    return {"name": user.name, "email": user.email}
+
+@require_admin
+def delete_user_account(*, actor: User, account_id: int) -> None:
+    database.delete_user(account_id)
 ```
 In the context of AOP:
-- cross-cutting concern: security (or authentication)
-- advice: `authenticate`
-- join point: `fetch_user_data`
+- cross-cutting concern: authorization
+- advice: `require_admin`
+- join point: `delete_user_account`
 
-This approach not only makes the behavior implicit but also introduces redundancy into the code.
+The decorator hides an important part of the operation.
+Reading `delete_user_account()` alone does not tell that administrator privileges are needed.
+Because the decorator is used only once, it also creates another function and an extra level of indirection without reducing duplication.
 
-In some cases like this scenario, it may be better to write the code explicitly without using decorators:
+It may be better to write the code explicitly without using decorators:
 ```python
-def fetch_user_data(user: User):
-    if not user or not user.is_authenticated:
-        raise PermissionError("User is not authenticated")
-    return {"name": user.name, "email": user.email}
+def delete_user_account(*, actor: User, account_id: int) -> None:
+    if not actor.is_admin:
+        raise PermissionError("Administrator access is required")
+
+    database.delete_user(account_id)
 ```
-By making the authentication check explicit within the function, the behavior becomes transparent to anyone reading the code.
-There's no hidden logic; everything the function does is laid out plainly.
+Now the function's behavior and security requirements are all laid out plainly; there's no hidden behavior.
+A reader can immediately see who can perform the operation and what happens when authorization fails.
+
+In such a scenario, I often follow the [rule of three](https://en.wikipedia.org/wiki/Rule_of_three_(computer_programming)).
+I keep the behavior explicit until the same pattern appears in at least three places.
+At that point, I extract it into a decorator.
 
 Here are some simple guidelines to minimize the unintended outcomes when using Python decorators:
 - KISS(Keep it simple, stupid). Limit what decorators do.
@@ -162,6 +176,7 @@ Here are some simple guidelines to minimize the unintended outcomes when using P
 - Clearly document what the behavior of decorators. (Otherwise, the only information available to users for inferring the behavior is the decorator's name.)
 
 ### Metaclasses
+
 Python Metaclasses allow you to customize class creation and behavior.
 While they may be useful in some very special cases (which I don't really think there are), overusing metaclasses can lead to code that is hard to understand, debug, and maintain as they can introduce hidden behaviors and side effects that are not immediately apparent from the class definition itself.
 
@@ -237,6 +252,7 @@ As a side note, whenever tempted to use metaclasses, remember this:
 > -- <cite>Tim Peters</cite>
 
 ### Test Fixtures
+
 A test fixture is a setup or environment created to ensure that tests run consistently and reliably.
 It includes the necessary conditions, data, or objects required for testing, such as initializing databases, creating mock objects, or cleaning up resources after tests.
 
@@ -244,6 +260,7 @@ While test fixtures aren't directly related to AOP, both serve to modularize con
 If you're already thinking in AOP terms, you might see fixtures as a testing-specific AOP pattern for setup and teardown logic.
 
 #### In-line Setup
+
 The simplest and most explicit way to define test fixtures is through *in-line setup*.
 Here's an example of using this approach:
 ```python
@@ -274,6 +291,7 @@ Duplicating fixture code not only clutters the test suite but also complicates m
 This is not AOP.
 
 #### Delegate Setup
+
 To address this in an AOP manner, we can extract the shared fixture logic into a reusable method and inject it into test functions.
 This approach, known as *delegate setup*, is shown below using `pytest`:
 ```python
@@ -301,6 +319,7 @@ Here, the `setup` fixture manages the creation and teardown of resources.
 While there's a slight reduction in explicitness—test, it efficiently eliminates duplication, making tests cleaner and easier to maintain.
 
 #### Implicit Setup
+
 You can go further streamline test fixtures by using *implicit setup*.
 By enabling `autouse=True`, the fixture automatically applies to all tests without requiring explicit inclusion:
 ```python
@@ -354,11 +373,13 @@ Here are a couple of key takeaways:
 - Since every aspect is tightly coupled with all of its join points in a program, any change to it can result in widespread program failures.
 
 ## Convention over Configuration
+
 Convention over configuration, also known as coding by convention, is a design paradigm that minimizes number of explicit configurations developers need to make by providing sensible default behaviors or configurations.
 This approach is especially prevalent in libraries and frameworks across various programming languages.
 While it simplifies the development process and adheres to principles like DRY (Don't Repeat Yourself), it also introduces some pitfalls when implicit behaviors clash with developers' expectations.
 
 ### Convention-based ORM
+
 As an example, I will use this particular web framework, [Django](https://www.djangoproject.com/).
 Django supports database migrations for its object-relational mapping (ORM) models.
 When defining models, Django provides two implicit default behaviors:
@@ -396,6 +417,7 @@ Although this approach resolves the issue, it adds a little complexity, especial
 Failing to address implicit naming conventions may lead to technical debt.
 
 ### External Dependencies
+
 Another common use case of convention over configuration is the reliance on environment variables for managing application settings.
 This method is particularly useful for handling sensitive data (e.g., passwords, tokens) or configuring external systems without hardcoding values.
 
@@ -433,6 +455,7 @@ s3_client.upload_file(file_name, bucket, object_name)
 With some added verbosity, the application explicitly declares its dependency on external configuration, improving clarity and maintainability.
 
 ## Multithreading
+
 Multithreading is another example that leads to non-intuitive behaviors.
 The most notable drawbacks is the occurrence of race conditions.
 A race condition arises when multiple threads simultaneously access and modify shared data without proper synchronization.
@@ -501,6 +524,7 @@ And the value of sequential computation is well described here:
 > -- <cite>Edward A. Lee</cite>
 
 ## Conclusion
+
 Implicit behaviors often emerge as a result of specific design choices (e.g. AOP or CoC) we make to address larger problems (e.g. managing cross-cutting concerns or streamlining configurations).
 When applied appropriately, they help reduce redundancy and simplify complex tasks.
 However, they also bring costs, including:
@@ -513,6 +537,7 @@ And, there might be many situations where making implicit behaviors explicit cou
 While implicit behaviors can help streamline development and abstract away some complexity, the value of explicitness should not be underestimated.
 
 ## References
+
 - [Aspect-oriented programming](https://en.wikipedia.org/wiki/Aspect-oriented_programming)
 - [Pointcut](https://en.wikipedia.org/wiki/Pointcut)
 - [Metaclass](https://en.wikipedia.org/wiki/Metaclass)
