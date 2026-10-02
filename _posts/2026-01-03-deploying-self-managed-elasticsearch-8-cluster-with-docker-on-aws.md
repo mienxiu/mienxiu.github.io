@@ -818,6 +818,37 @@ Before running them, make sure you update these values to match your environment
 - `ELASTIC_PASSWORD`
 - `ca.crt` and `ca.key` files (refer to `REPLACE IT` in the `join_cluster.sh` file)
 
+## Creating Custom Images
+
+The base Docker images provided by Elastic don't include extra plugins.
+To install necessary plugins for your setup, you can create your own [custom image](https://www.elastic.co/docs/deploy-manage/deploy/cloud-on-k8s/create-custom-images) extending the base image.
+
+For example, the following creates an Elasticsearch 8.19.7 image with the [Korean (nori) analysis plugin](https://www.elastic.co/guide/en/elasticsearch/plugins/8.19/analysis-nori.html) installed:
+```sh
+sudo docker build -t elasticsearch-nori:8.19.7 - << EOF
+FROM docker.elastic.co/elasticsearch/elasticsearch:8.19.7
+RUN bin/elasticsearch-plugin install --batch analysis-nori
+EOF
+```
+
+Run the Elasticsearch container with the custom image:
+```sh
+sudo docker run -d \
+    ...
+    elasticsearch-nori:8.19.7
+```
+
+You can then verify a list of plugins installed in the cluster:
+```
+GET _cat/plugins?v
+```
+
+Output:
+```
+name    component     version
+my-node analysis-nori 8.19.7
+```
+
 ## Zone Awareness
 
 To improve resilience against infrastructure failures, it is highly recommended to deploy an Elasticsearch cluster across multiple availability zones.
@@ -850,6 +881,71 @@ The configuration is simple:
 
 Note that for a cluster with three master-eligible nodes, each node should be placed in a different availability zone.
 If only two availability zones are used, quorum may be lost when the zone containing two master-eligible nodes fails.
+
+## Removing Nodes
+
+Removing a node is basically just stopping its Docker container and shutting down the instance.
+However, there are a few things to take care of first.
+
+### Removing Master Nodes
+
+When removing at least half of the master-eligible nodes at once, first exclude them from the [voting configuration](https://www.elastic.co/guide/en/elasticsearch/reference/8.19/modules-discovery-voting.html):
+```
+POST /_cluster/voting_config_exclusions?node_names=master-1
+```
+This is necessary because Elasticsearch needs a majority of the current voting configuration to elect a master and commit cluster-state changes.
+If you remove too many voting nodes at once without reconfiguring first, the remaining nodes may lose quorum and the cluster can become unavailable.
+
+Wait until the reconfiguration is done before stopping the node.
+
+You can then safely stop the container:
+```sh
+docker stop elasticsearch
+```
+
+After the node has left the cluster, clean up the voting configuration exclusions:
+```
+DELETE /_cluster/voting_config_exclusions
+```
+
+When removing fewer than half of the master-eligible nodes, voting exclusions are normally not required.
+Remove the nodes one at a time and let Elasticsearch adjust the voting configuration automatically before removing the next one.
+
+### Removing Data Nodes
+
+Before removing a node that holds data, move its shards to other nodes by excluding it from shard allocation:
+```json
+PUT _cluster/settings
+{
+    "persistent": {
+        "cluster.routing.allocation.exclude._name": "data-1,data-2"
+    }
+}
+```
+This prevents Elasticsearch from allocating shards to the specified nodes and relocates their existing shards to other eligible nodes.
+
+Relocation may take some time depending on the shard size.
+You can monitor the relocation progress with:
+```json
+GET /_cat/shards?v
+```
+
+After the nodes being removed no longer hold any shards, stop their containers:
+```sh
+docker stop elasticsearch
+```
+
+After the nodes have left the cluster, reset the allocation exclusion setting:
+```json
+PUT _cluster/settings
+{
+    "persistent": {
+        "cluster.routing.allocation.exclude._name": null
+    }
+}
+```
+
+You can then safely shut down the instances.
 
 ## Conclusion
 
