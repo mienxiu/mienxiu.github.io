@@ -29,6 +29,8 @@ tags:
         url: /tags/kubernetes/
       - title: "Microservices"
         url: /tags/microservices/
+      - title: "ML"
+        url: "/tags/ml/"
       - title: "Networking"
         url: /tags/networking/
       - title: "OS"
